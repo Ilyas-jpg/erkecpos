@@ -103,6 +103,7 @@ interface AppState {
   theme: "dark" | "light";
   toasts: Toast[];
   loading: boolean;
+  isAdmin: boolean;
 
   // Actions
   fetchCategories: () => Promise<void>;
@@ -118,6 +119,9 @@ interface AppState {
   updateCartItemQuantity: (id: string, quantity: number) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
+
+  loginAdmin: (pin: string) => boolean;
+  logoutAdmin: () => void;
 
   toggleTheme: () => void;
   addToast: (message: string, type?: Toast["type"]) => void;
@@ -135,6 +139,7 @@ export const useStore = create<AppState>((set, get) => ({
   theme: "dark",
   toasts: [],
   loading: false,
+  isAdmin: sessionStorage.getItem("pos_admin") === "1",
 
   fetchCategories: async () => {
     const data = await api.get<any[]>("/api/categories");
@@ -224,6 +229,23 @@ export const useStore = create<AppState>((set, get) => ({
   },
 
   clearCart: () => set({ cart: [] }),
+
+  loginAdmin: (pin: string) => {
+    // PIN is stored in settings, fallback to "123456"
+    const settings = get().settings;
+    const correctPin = (settings as any)?.admin_pin?.pin || "123456";
+    if (pin === correctPin) {
+      sessionStorage.setItem("pos_admin", "1");
+      set({ isAdmin: true });
+      return true;
+    }
+    return false;
+  },
+
+  logoutAdmin: () => {
+    sessionStorage.removeItem("pos_admin");
+    set({ isAdmin: false });
+  },
 
   toggleTheme: () => {
     const newTheme = get().theme === "dark" ? "light" : "dark";

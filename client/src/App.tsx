@@ -5,6 +5,7 @@ import { connectRealtime } from "./lib/realtime";
 import { Sidebar } from "./components/layout/Sidebar";
 import { BottomNav } from "./components/layout/BottomNav";
 import { ToastContainer } from "./components/layout/Toast";
+import { PinLock } from "./components/shared/PinLock";
 import { POSPage } from "./pages/POSPage";
 import { MenuManagePage } from "./pages/MenuManagePage";
 import { CombosPage } from "./pages/CombosPage";
@@ -12,6 +13,10 @@ import { CampaignsPage } from "./pages/CampaignsPage";
 import { AccountingPage } from "./pages/AccountingPage";
 import { WastePage } from "./pages/WastePage";
 import { SettingsPage } from "./pages/SettingsPage";
+
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  return <PinLock>{children}</PinLock>;
+}
 
 export default function App() {
   const fetchAll = useStore((s) => s.fetchAll);
@@ -55,12 +60,12 @@ export default function App() {
         <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
           <Routes>
             <Route path="/" element={<POSPage />} />
-            <Route path="/menu" element={<MenuManagePage />} />
-            <Route path="/combos" element={<CombosPage />} />
-            <Route path="/campaigns" element={<CampaignsPage />} />
-            <Route path="/accounting" element={<AccountingPage />} />
-            <Route path="/waste" element={<WastePage />} />
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/menu" element={<AdminRoute><MenuManagePage /></AdminRoute>} />
+            <Route path="/combos" element={<AdminRoute><CombosPage /></AdminRoute>} />
+            <Route path="/campaigns" element={<AdminRoute><CampaignsPage /></AdminRoute>} />
+            <Route path="/accounting" element={<AdminRoute><AccountingPage /></AdminRoute>} />
+            <Route path="/waste" element={<AdminRoute><WastePage /></AdminRoute>} />
+            <Route path="/settings" element={<AdminRoute><SettingsPage /></AdminRoute>} />
           </Routes>
         </main>
         <BottomNav />

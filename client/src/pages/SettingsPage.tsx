@@ -20,9 +20,11 @@ export function SettingsPage() {
   const [businessPhone, setBusinessPhone] = useState("");
   const [businessTaxId, setBusinessTaxId] = useState("");
   const [dailyTarget, setDailyTarget] = useState(10000);
+  const [adminPin, setAdminPin] = useState("123456");
 
   useEffect(() => {
     if (settings) {
+      setAdminPin((settings as any).admin_pin?.pin ?? "123456");
       setServiceEnabled(settings.service_charge?.enabled ?? true);
       setServiceValue(settings.service_charge?.value ?? 10);
       setTaxRate(settings.tax_rate?.rate ?? 10);
@@ -98,6 +100,24 @@ export function SettingsPage() {
           <Button variant="secondary" className="mt-3" onClick={() => save("business_info", {
             name: businessName, address: businessAddress, phone: businessPhone, tax_id: businessTaxId,
           })}>Kaydet</Button>
+        </section>
+
+        {/* Admin PIN */}
+        <section className="bg-bg-card border border-border rounded-xl p-5">
+          <h3 className="font-semibold mb-4">Yönetim PIN Kodu</h3>
+          <p className="text-xs text-text-muted mb-3">Yönetim paneline erişim için kullanılan PIN. Varsayılan: 123456</p>
+          <input
+            type="text"
+            inputMode="numeric"
+            maxLength={8}
+            value={adminPin}
+            onChange={(e) => setAdminPin(e.target.value.replace(/\D/g, ""))}
+            placeholder="PIN kodu (4-8 haneli)"
+            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm font-mono min-h-[48px] focus:outline-none focus:border-accent-blue tracking-[0.3em] text-center text-lg"
+          />
+          <Button variant="secondary" className="mt-3" onClick={() => save("admin_pin", { pin: adminPin })}>
+            PIN Kaydet
+          </Button>
         </section>
 
         {/* Daily Target */}
