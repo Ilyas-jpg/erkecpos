@@ -46,21 +46,21 @@ export function NumpadModal({
 
   return (
     <Modal open={open} onClose={onClose} title={title} size="sm">
-      <div className="p-4">
-        <div className="bg-bg-surface rounded-xl p-4 mb-4 text-right">
+      <div className="p-5">
+        <div className="bg-bg-surface border border-border p-4 mb-4 text-right">
           <span className="font-mono text-3xl font-bold text-text-primary">
             {value || "0"}
           </span>
-          <span className="text-text-secondary ml-1">₺</span>
+          <span className="text-text-muted ml-1 text-lg">₺</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 mb-4">
+        <div className="grid grid-cols-3 gap-1.5 mb-4">
           {keys.map((key) => (
             <button
               key={key}
               onClick={() => handleKey(key)}
-              className={`h-16 rounded-xl text-xl font-semibold transition-all active:scale-95
-                ${key === "C" ? "bg-accent-red/20 text-accent-red" : "bg-bg-surface hover:bg-bg-hover text-text-primary"}`}
+              className={`h-14 text-lg font-semibold transition-all
+                ${key === "C" ? "bg-accent-red/15 text-accent-red hover:bg-accent-red/25" : "bg-bg-surface hover:bg-bg-hover text-text-primary border border-border"}`}
             >
               {key}
             </button>
@@ -70,11 +70,11 @@ export function NumpadModal({
         <div className="flex gap-2">
           <button
             onClick={() => handleKey("DEL")}
-            className="flex-1 h-14 rounded-xl bg-bg-surface hover:bg-bg-hover text-text-secondary font-medium active:scale-95"
+            className="flex-1 h-12 bg-bg-surface hover:bg-bg-hover text-text-secondary font-medium border border-border"
           >
             ← Sil
           </button>
-          <Button size="xl" variant="success" className="flex-[2]" onClick={handleConfirm}>
+          <Button size="lg" variant="success" className="flex-[2]" onClick={handleConfirm}>
             Onayla
           </Button>
         </div>

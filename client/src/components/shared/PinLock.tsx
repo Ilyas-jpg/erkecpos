@@ -20,7 +20,6 @@ export function PinLock({ children }: { children: React.ReactNode }) {
       const newPin = pin + key;
       setPin(newPin);
 
-      // Auto-submit when 6 digits entered
       if (newPin.length >= 6) {
         setTimeout(() => {
           if (loginAdmin(newPin)) {
@@ -56,21 +55,20 @@ export function PinLock({ children }: { children: React.ReactNode }) {
         className="w-full max-w-xs"
       >
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-bg-card border border-border rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl">🔒</span>
+          <div className="w-16 h-16 bg-bg-card border border-border flex items-center justify-center mx-auto mb-4">
+            <span className="text-2xl">🔒</span>
           </div>
-          <h1 className="text-xl font-bold mb-1">Yönetim Paneli</h1>
-          <p className="text-sm text-text-secondary">PIN kodunu girin</p>
+          <h1 className="text-lg font-semibold tracking-widest uppercase mb-1">Yönetim Paneli</h1>
+          <p className="text-xs text-text-muted tracking-wider">PIN kodunu girin</p>
         </div>
 
-        {/* PIN dots */}
         <div className="flex items-center justify-center gap-3 mb-8">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <motion.div
               key={i}
               animate={pin.length > i ? { scale: [1, 1.3, 1] } : {}}
               transition={{ duration: 0.15 }}
-              className={`w-4 h-4 rounded-full border-2 transition-all ${
+              className={`w-3 h-3 rounded-full border-2 transition-all ${
                 pin.length > i
                   ? "bg-accent-green border-accent-green"
                   : "bg-transparent border-text-muted"
@@ -79,13 +77,12 @@ export function PinLock({ children }: { children: React.ReactNode }) {
           ))}
         </div>
 
-        {/* Numpad */}
-        <div className="grid grid-cols-3 gap-2 mb-4">
+        <div className="grid grid-cols-3 gap-1.5 mb-3">
           {keys.map((key) => (
             <button
               key={key}
               onClick={() => handleKey(key)}
-              className={`h-16 rounded-2xl text-xl font-semibold transition-all active:scale-95
+              className={`h-14 text-lg font-semibold transition-all
                 ${key === "C" ? "bg-accent-red/15 text-accent-red" :
                   key === "DEL" ? "bg-bg-surface text-text-secondary text-base" :
                   "bg-bg-card border border-border text-text-primary hover:bg-bg-surface"}`}
@@ -98,8 +95,8 @@ export function PinLock({ children }: { children: React.ReactNode }) {
         <button
           onClick={handleSubmit}
           disabled={pin.length < 4}
-          className="w-full h-14 bg-accent-green text-white rounded-2xl font-semibold text-lg
-            disabled:opacity-30 disabled:pointer-events-none active:scale-[0.98] transition-all"
+          className="w-full h-14 bg-accent-green text-white font-semibold text-sm tracking-widest uppercase
+            disabled:opacity-30 disabled:pointer-events-none transition-all"
         >
           Giriş
         </button>

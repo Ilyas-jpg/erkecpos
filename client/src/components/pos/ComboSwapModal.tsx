@@ -70,14 +70,14 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
               : [];
 
             return (
-              <div key={item.id} className="bg-bg-surface rounded-xl p-3">
+              <div key={item.id} className="bg-bg-surface p-3">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-medium text-sm">
                     {currentProduct?.name || item.productName}
                     {item.quantity > 1 && ` x${item.quantity}`}
                   </span>
                   {swappable && (
-                    <span className="text-[10px] bg-accent-amber/20 text-accent-amber px-2 py-0.5 rounded">
+                    <span className="text-[10px] bg-accent-amber/20 text-accent-amber px-2 py-0.5">
                       Degistirilebilir
                     </span>
                   )}
@@ -93,7 +93,7 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
                           key={opt.id}
                           onClick={() => handleSwap(item.id, opt.id)}
                           className={cn(
-                            "px-3 py-2 rounded-lg text-xs border min-h-[40px] transition-all",
+                            "px-3 py-2 text-xs border min-h-[40px] transition-all",
                             isSelected
                               ? "border-accent-green bg-accent-green/10 text-accent-green"
                               : "border-border text-text-secondary hover:bg-bg-hover"

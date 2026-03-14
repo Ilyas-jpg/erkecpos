@@ -43,11 +43,8 @@ export function ProductGrid({ search, onSearchChange, onProductTap, onComboTap }
     return list;
   }, [combos, selectedCategory, search]);
 
-  // Check which products have extras
   const productHasExtras = useMemo(() => {
     const set = new Set<string>();
-    // We'll mark products that might have extras (main dishes, soups, etc.)
-    // This is a simplified check - in production, query product_extras
     for (const p of products) {
       if (["cat-ana-yemek", "cat-corbalar", "cat-pilav-makarna", "cat-yan-urunler"].includes(p.categoryId || "")) {
         set.add(p.id);
@@ -73,10 +70,9 @@ export function ProductGrid({ search, onSearchChange, onProductTap, onComboTap }
       </div>
 
       <div className="flex-1 overflow-y-auto scroll-container p-3 pt-0">
-        {/* Combos section */}
         {filteredCombos.length > 0 && (
           <div className="mb-4">
-            <h3 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2 px-1">
+            <h3 className="text-[10px] font-semibold text-text-muted uppercase tracking-[0.2em] mb-2 px-1">
               Menüler
             </h3>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-2">
@@ -87,7 +83,6 @@ export function ProductGrid({ search, onSearchChange, onProductTap, onComboTap }
           </div>
         )}
 
-        {/* Products */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-2">
             <AnimatePresence>

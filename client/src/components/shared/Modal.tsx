@@ -34,24 +34,24 @@ export function Modal({ open, onClose, title, children, size = "md" }: ModalProp
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
+          transition={{ duration: 0.2 }}
         >
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
           <motion.div
-            className={`relative w-full ${sizeClasses[size]} bg-bg-card border border-border rounded-2xl shadow-2xl overflow-hidden`}
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ duration: 0.15 }}
+            className={`relative w-full ${sizeClasses[size]} bg-bg-card border border-border-strong shadow-2xl shadow-black/50 overflow-hidden`}
+            initial={{ scale: 0.96, opacity: 0, y: 8 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
             {title && (
-              <div className="flex items-center justify-between px-6 py-4 border-b border-border">
-                <h2 className="text-lg font-semibold">{title}</h2>
+              <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-bg-surface/50">
+                <h2 className="text-sm font-semibold tracking-widest uppercase text-text-secondary">{title}</h2>
                 <button
                   onClick={onClose}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-bg-surface text-text-secondary text-xl"
+                  className="w-8 h-8 flex items-center justify-center hover:bg-bg-hover text-text-muted hover:text-text-primary transition-colors"
                 >
-                  ×
+                  ✕
                 </button>
               </div>
             )}

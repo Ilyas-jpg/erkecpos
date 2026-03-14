@@ -16,7 +16,7 @@ export function OrderItem({ item, onIncrement, onDecrement, onRemove }: OrderIte
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
-      className="bg-bg-surface rounded-xl p-3 group"
+      className="bg-bg-surface border border-border p-3"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
@@ -24,7 +24,7 @@ export function OrderItem({ item, onIncrement, onDecrement, onRemove }: OrderIte
           {item.extras.length > 0 && (
             <div className="flex flex-wrap gap-1 mt-1">
               {item.extras.map((ext, i) => (
-                <span key={i} className="text-[10px] bg-bg-card px-1.5 py-0.5 rounded text-text-muted">
+                <span key={i} className="text-[9px] bg-bg-card px-1.5 py-0.5 text-text-muted tracking-wider">
                   {ext.name}
                 </span>
               ))}
@@ -40,25 +40,25 @@ export function OrderItem({ item, onIncrement, onDecrement, onRemove }: OrderIte
       </div>
 
       <div className="flex items-center justify-between mt-2">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           <button
             onClick={item.quantity === 1 ? onRemove : onDecrement}
-            className="w-10 h-10 rounded-lg bg-bg-card border border-border flex items-center justify-center
-              text-lg font-bold text-text-secondary hover:bg-bg-hover active:scale-95 transition-all"
+            className="w-9 h-9 bg-bg-card border border-border flex items-center justify-center
+              text-sm font-bold text-text-secondary hover:bg-bg-hover transition-all"
           >
             {item.quantity === 1 ? "🗑" : "−"}
           </button>
-          <span className="w-10 text-center font-mono font-bold text-sm">{item.quantity}</span>
+          <span className="w-9 text-center font-mono font-bold text-sm">{item.quantity}</span>
           <button
             onClick={onIncrement}
-            className="w-10 h-10 rounded-lg bg-bg-card border border-border flex items-center justify-center
-              text-lg font-bold text-accent-green hover:bg-accent-green/10 active:scale-95 transition-all"
+            className="w-9 h-9 bg-bg-card border border-border flex items-center justify-center
+              text-sm font-bold text-accent-green hover:bg-accent-green/10 transition-all"
           >
             +
           </button>
         </div>
         <span className="text-xs text-text-muted font-mono">
-          {formatPrice(item.unit_price)} x {item.quantity}
+          {formatPrice(item.unit_price)} × {item.quantity}
         </span>
       </div>
     </motion.div>

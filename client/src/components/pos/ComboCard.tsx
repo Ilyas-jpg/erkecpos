@@ -14,11 +14,11 @@ export function ComboCard({ combo, onTap }: ComboCardProps) {
   return (
     <motion.button
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
-      whileTap={{ scale: 0.96 }}
+      whileTap={{ scale: 0.97 }}
       onClick={onTap}
-      className="relative bg-gradient-to-br from-accent-purple/10 to-bg-card border border-accent-purple/30 rounded-2xl p-4 text-left min-h-[140px] flex flex-col justify-between hover:border-accent-purple/60 transition-all"
+      className="relative bg-gradient-to-br from-accent-purple/8 to-bg-card border border-accent-purple/20 p-4 text-left min-h-[130px] flex flex-col justify-between hover:border-accent-purple/40 transition-all"
     >
       <div>
         <div className="flex items-center gap-2 mb-1">
@@ -28,7 +28,7 @@ export function ComboCard({ combo, onTap }: ComboCardProps) {
         <p className="text-text-muted text-xs">{combo.description}</p>
         <div className="flex flex-wrap gap-1 mt-2">
           {combo.items?.map((item) => (
-            <span key={item.id} className="text-[10px] bg-bg-surface px-1.5 py-0.5 rounded text-text-secondary">
+            <span key={item.id} className="text-[9px] bg-bg-surface px-1.5 py-0.5 text-text-secondary tracking-wider">
               {item.productName}
               {item.isSwappable ? " ↔" : ""}
             </span>
@@ -45,9 +45,9 @@ export function ComboCard({ combo, onTap }: ComboCardProps) {
           )}
         </div>
         <div className="text-right">
-          <span className="font-mono text-lg font-bold text-accent-purple">{formatPrice(combo.price)}</span>
+          <span className="font-mono text-base font-bold text-accent-purple">{formatPrice(combo.price)}</span>
           {savings > 0 && (
-            <div className="text-[10px] text-accent-green font-medium">
+            <div className="text-[9px] text-accent-green font-semibold tracking-wider">
               {formatPrice(savings)} tasarruf
             </div>
           )}

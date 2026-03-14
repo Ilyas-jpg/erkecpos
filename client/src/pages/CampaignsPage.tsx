@@ -78,15 +78,15 @@ export function CampaignsPage() {
 
       <div className="flex-1 overflow-y-auto scroll-container p-4 grid gap-3 auto-rows-min">
         {campaigns.map((camp) => (
-          <div key={camp.id} className="bg-bg-card border border-border rounded-xl p-4">
+          <div key={camp.id} className="bg-bg-card border border-border p-4">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="font-semibold flex items-center gap-2">
                   🎯 {camp.name}
-                  {camp.active === 0 && <span className="text-[10px] bg-accent-red/20 text-accent-red px-1.5 py-0.5 rounded">Pasif</span>}
+                  {camp.active === 0 && <span className="text-[10px] bg-accent-red/20 text-accent-red px-1.5 py-0.5">Pasif</span>}
                 </h3>
                 <div className="flex gap-2 mt-1">
-                  <span className="text-xs bg-accent-purple/20 text-accent-purple px-2 py-0.5 rounded">{typeLabels[camp.type]}</span>
+                  <span className="text-xs bg-accent-purple/20 text-accent-purple px-2 py-0.5">{typeLabels[camp.type]}</span>
                   <span className="text-xs text-text-muted">{camp.applies_to}</span>
                 </div>
               </div>
@@ -110,34 +110,34 @@ export function CampaignsPage() {
       <Modal open={formOpen} onClose={() => { setFormOpen(false); setEditCampaign(null); }} title={editCampaign ? "Kampanyayı Düzenle" : "Yeni Kampanya"} size="md">
         <div className="p-5 space-y-4">
           <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Kampanya adı"
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <div className="grid grid-cols-2 gap-3">
             <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}
-              className="bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]">
+              className="bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]">
               <option value="percent">% İndirim</option>
               <option value="fixed">₺ Sabit İndirim</option>
               <option value="bogo">1 Al 1 Öde</option>
               <option value="free_extra">Ücretsiz Ekstra</option>
             </select>
             <input type="number" value={form.value} onChange={(e) => setForm({ ...form, value: Number(e.target.value) })}
-              placeholder="Değer" className="bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] font-mono focus:outline-none focus:border-accent-blue" />
+              placeholder="Değer" className="bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] font-mono focus:outline-none focus:border-accent-blue" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <select value={form.applies_to} onChange={(e) => setForm({ ...form, applies_to: e.target.value })}
-              className="bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]">
+              className="bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]">
               <option value="all">Tümü</option>
               <option value="category">Kategori</option>
               <option value="product">Ürün</option>
               <option value="combo">Menü</option>
             </select>
             <input type="number" value={form.min_order_amount} onChange={(e) => setForm({ ...form, min_order_amount: Number(e.target.value) })}
-              placeholder="Min tutar" className="bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] font-mono focus:outline-none focus:border-accent-blue" />
+              placeholder="Min tutar" className="bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] font-mono focus:outline-none focus:border-accent-blue" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <input type="date" value={form.start_date} onChange={(e) => setForm({ ...form, start_date: e.target.value })}
-              className="bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]" />
+              className="bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]" />
             <input type="date" value={form.end_date} onChange={(e) => setForm({ ...form, end_date: e.target.value })}
-              className="bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]" />
+              className="bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]" />
           </div>
           <Toggle checked={form.active === 1} onChange={(v) => setForm({ ...form, active: v ? 1 : 0 })} label="Aktif" />
           <Button className="w-full" onClick={handleSave}>{editCampaign ? "Kaydet" : "Oluştur"}</Button>

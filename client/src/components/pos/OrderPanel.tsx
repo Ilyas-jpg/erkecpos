@@ -21,7 +21,7 @@ export function OrderPanel() {
 
   const calculations = useMemo(() => {
     const subtotal = cart.reduce((sum, item) => sum + item.total_price, 0);
-    const discount = 0; // campaigns would be applied here
+    const discount = 0;
     const afterDiscount = subtotal - discount;
     const serviceCharge = serviceConfig.enabled
       ? Math.round(afterDiscount * (serviceConfig.value / 100) * 100) / 100
@@ -34,22 +34,20 @@ export function OrderPanel() {
 
   return (
     <>
-      <div className="w-full lg:w-[360px] bg-bg-card border-l border-border flex flex-col h-full">
-        {/* Header */}
+      <div className="w-full lg:w-[340px] bg-bg-card border-l border-border flex flex-col h-full">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
-          <h2 className="font-semibold">Sipariş</h2>
+          <h2 className="text-xs font-semibold tracking-widest uppercase text-text-secondary">Sipariş</h2>
           {cart.length > 0 && (
             <button
               onClick={clearCart}
-              className="text-xs text-accent-red hover:underline min-h-[36px] px-2"
+              className="text-[10px] text-accent-red hover:text-red-400 tracking-widest uppercase font-semibold min-h-[36px] px-2 transition-colors"
             >
               Temizle
             </button>
           )}
         </div>
 
-        {/* Items */}
-        <div className="flex-1 overflow-y-auto scroll-container p-3 space-y-2">
+        <div className="flex-1 overflow-y-auto scroll-container p-3 space-y-1.5">
           {cart.length === 0 ? (
             <EmptyState icon="🛒" title="Sepet boş" description="Ürün eklemek için menüden seçin" />
           ) : (
@@ -67,25 +65,24 @@ export function OrderPanel() {
           )}
         </div>
 
-        {/* Totals */}
         {cart.length > 0 && (
-          <div className="border-t border-border p-4 space-y-2 shrink-0">
-            <div className="flex justify-between text-sm">
-              <span className="text-text-secondary">Ara Toplam</span>
-              <span className="font-mono">{formatPrice(calculations.subtotal)}</span>
+          <div className="border-t border-border p-4 space-y-1.5 shrink-0 bg-bg-surface/30">
+            <div className="flex justify-between text-xs">
+              <span className="text-text-muted uppercase tracking-wider">Ara Toplam</span>
+              <span className="font-mono text-text-secondary">{formatPrice(calculations.subtotal)}</span>
             </div>
             {calculations.serviceCharge > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Servis (%{serviceConfig.value})</span>
-                <span className="font-mono">{formatPrice(calculations.serviceCharge)}</span>
+              <div className="flex justify-between text-xs">
+                <span className="text-text-muted uppercase tracking-wider">Servis %{serviceConfig.value}</span>
+                <span className="font-mono text-text-secondary">{formatPrice(calculations.serviceCharge)}</span>
               </div>
             )}
-            <div className="flex justify-between text-sm">
-              <span className="text-text-secondary">KDV (%{taxConfig.rate})</span>
-              <span className="font-mono">{formatPrice(calculations.tax)}</span>
+            <div className="flex justify-between text-xs">
+              <span className="text-text-muted uppercase tracking-wider">KDV %{taxConfig.rate}</span>
+              <span className="font-mono text-text-secondary">{formatPrice(calculations.tax)}</span>
             </div>
-            <div className="flex justify-between text-lg font-bold pt-2 border-t border-border">
-              <span>TOPLAM</span>
+            <div className="flex justify-between text-lg font-bold pt-3 mt-2 border-t border-border">
+              <span className="tracking-wider">TOPLAM</span>
               <span className="font-mono text-accent-green">{formatPrice(calculations.total)}</span>
             </div>
 
@@ -95,7 +92,7 @@ export function OrderPanel() {
               className="w-full mt-3"
               onClick={() => setPaymentOpen(true)}
             >
-              SİPARİŞİ TAMAMLA
+              Siparişi Tamamla
             </Button>
           </div>
         )}

@@ -1,34 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-darkest: #0C0C14;
-  --color-bg-card: #14141F;
-  --color-bg-surface: #1C1C2E;
-  --color-bg-hover: #252540;
-  --color-accent-red: #EF4444;
-  --color-accent-green: #10B981;
-  --color-accent-amber: #F59E0B;
-  --color-accent-blue: #3B82F6;
-  --color-accent-purple: #A855F7;
-  --color-text-primary: #F1F1F1;
-  --color-text-secondary: #888888;
-  --color-text-muted: #444444;
-  --color-border: #2A2A40;
+  --color-bg-darkest: #08080e;
+  --color-bg-card: #0f0f1a;
+  --color-bg-surface: #161624;
+  --color-bg-hover: #1e1e30;
+  --color-accent-red: #ef4444;
+  --color-accent-green: #22c55e;
+  --color-accent-amber: #f59e0b;
+  --color-accent-blue: #3b82f6;
+  --color-accent-purple: #a855f7;
+  --color-text-primary: #f0f0f6;
+  --color-text-secondary: #7c7c96;
+  --color-text-muted: #3e3e56;
+  --color-border: #1a1a2e;
+  --color-border-strong: #26263e;
 
-  --font-sans: "Outfit", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: -apple-system, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Outfit", system-ui, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
 /* Light theme */
 .light {
-  --color-bg-darkest: #F5F5F8;
-  --color-bg-card: #FFFFFF;
-  --color-bg-surface: #EEEEF2;
-  --color-bg-hover: #E0E0E8;
-  --color-text-primary: #1A1A2E;
-  --color-text-secondary: #666666;
-  --color-text-muted: #AAAAAA;
-  --color-border: #D0D0DD;
+  --color-bg-darkest: #f5f5f7;
+  --color-bg-card: #ffffff;
+  --color-bg-surface: #e8e8ed;
+  --color-bg-hover: #d8d8e0;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-muted: #aeaeb2;
+  --color-border: #d2d2d7;
+  --color-border-strong: #c7c7cc;
 }
 
 * {
@@ -48,31 +50,42 @@ html, body, #root {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium background gradient */
+#root {
+  background-image:
+    radial-gradient(ellipse at 15% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 15%, rgba(168, 85, 247, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 85%, rgba(239, 68, 68, 0.02) 0%, transparent 50%);
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-text-muted);
-  border-radius: 3px;
+  background: var(--color-border-strong);
+  border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-secondary);
+  background: var(--color-text-muted);
 }
 
 /* Touch-friendly active states */
 button, [role="button"] {
   touch-action: manipulation;
+  transition: all 0.15s ease;
 }
 button:active, [role="button"]:active {
-  transform: scale(0.96);
-  opacity: 0.9;
+  transform: scale(0.97);
+  opacity: 0.85;
 }
 
 /* Momentum scrolling */
@@ -85,4 +98,34 @@ button:active, [role="button"]:active {
 /* Number font */
 .font-mono {
   font-family: var(--font-mono);
+}
+
+/* Focus styles */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-blue) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* Select styling */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%237c7c96' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px !important;
+  cursor: pointer;
+}
+
+/* Safe area for mobile */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Glass morphism card effect */
+.glass-card {
+  background: rgba(15, 15, 26, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }

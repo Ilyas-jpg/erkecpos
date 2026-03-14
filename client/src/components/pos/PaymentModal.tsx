@@ -90,7 +90,7 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
     <Modal open={open} onClose={onClose} title="Ödeme" size="lg">
       <div className="p-5">
         {/* Summary */}
-        <div className="bg-bg-surface rounded-xl p-4 mb-5">
+        <div className="bg-bg-surface p-4 mb-5">
           <div className="space-y-1.5 text-sm">
             <div className="flex justify-between">
               <span className="text-text-secondary">Ara Toplam</span>
@@ -128,7 +128,7 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
               key={m.key}
               onClick={() => setMethod(m.key)}
               className={cn(
-                "flex flex-col items-center gap-1 p-3 rounded-xl border min-h-[64px] transition-all",
+                "flex flex-col items-center gap-1 p-3 border min-h-[64px] transition-all",
                 method === m.key
                   ? "border-accent-green bg-accent-green/10 text-accent-green"
                   : "border-border bg-bg-surface text-text-secondary hover:bg-bg-hover"
@@ -143,7 +143,7 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
         {/* Cash numpad */}
         {method === "cash" && (
           <div className="mb-5">
-            <div className="bg-bg-surface rounded-xl p-4 mb-3">
+            <div className="bg-bg-surface p-4 mb-3">
               <div className="flex justify-between items-center">
                 <span className="text-text-secondary text-sm">Alınan</span>
                 <span className="font-mono text-2xl font-bold">{cashAmount || "0"} ₺</span>
@@ -163,14 +163,14 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
                 <button
                   key={amt}
                   onClick={() => setCashAmount(String(amt))}
-                  className="flex-1 py-2.5 rounded-lg bg-bg-surface hover:bg-bg-hover text-sm font-mono border border-border min-h-[44px]"
+                  className="flex-1 py-2.5 bg-bg-surface hover:bg-bg-hover text-sm font-mono border border-border min-h-[44px]"
                 >
                   {amt}₺
                 </button>
               ))}
               <button
                 onClick={() => setCashAmount(String(Math.ceil(total)))}
-                className="flex-1 py-2.5 rounded-lg bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/30 min-h-[44px]"
+                className="flex-1 py-2.5 bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/30 min-h-[44px]"
               >
                 Tam
               </button>
@@ -182,7 +182,7 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
                   key={key}
                   onClick={() => handleNumpad(key)}
                   className={cn(
-                    "h-12 rounded-lg text-lg font-semibold active:scale-95 transition-all",
+                    "h-12 text-lg font-semibold active:scale-95 transition-all",
                     key === "C" ? "bg-accent-red/20 text-accent-red" : "bg-bg-surface hover:bg-bg-hover"
                   )}
                 >
@@ -199,7 +199,7 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
           placeholder="Sipariş notu (opsiyonel)"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm mb-5
+          className="w-full bg-bg-surface border border-border px-4 py-3 text-sm mb-5
             placeholder:text-text-muted focus:outline-none focus:border-accent-blue min-h-[48px]"
         />
 

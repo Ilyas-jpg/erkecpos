@@ -1,11 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore } from "../../lib/store";
 
-const typeColors = {
-  success: "bg-accent-green",
-  error: "bg-accent-red",
-  info: "bg-accent-blue",
-  warning: "bg-accent-amber",
+const typeStyles = {
+  success: "bg-accent-green/90 backdrop-blur-sm",
+  error: "bg-accent-red/90 backdrop-blur-sm",
+  info: "bg-accent-blue/90 backdrop-blur-sm",
+  warning: "bg-accent-amber/90 backdrop-blur-sm",
 };
 
 export function ToastContainer() {
@@ -18,13 +18,14 @@ export function ToastContainer() {
         {toasts.map((toast) => (
           <motion.div
             key={toast.id}
-            initial={{ opacity: 0, x: 100, scale: 0.9 }}
+            initial={{ opacity: 0, x: 50, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 100, scale: 0.9 }}
-            className={`${typeColors[toast.type]} text-white px-5 py-3 rounded-xl shadow-lg pointer-events-auto cursor-pointer min-w-[280px]`}
+            exit={{ opacity: 0, x: 50, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className={`${typeStyles[toast.type]} text-white px-5 py-3 shadow-lg shadow-black/20 pointer-events-auto cursor-pointer min-w-[260px]`}
             onClick={() => removeToast(toast.id)}
           >
-            <p className="text-sm font-medium">{toast.message}</p>
+            <p className="text-sm font-medium tracking-wide">{toast.message}</p>
           </motion.div>
         ))}
       </AnimatePresence>

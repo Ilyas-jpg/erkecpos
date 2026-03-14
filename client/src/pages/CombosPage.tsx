@@ -82,12 +82,12 @@ export function CombosPage() {
 
       <div className="flex-1 overflow-y-auto scroll-container p-4 grid gap-3 auto-rows-min">
         {combos.map((combo) => (
-          <div key={combo.id} className="bg-bg-card border border-border rounded-xl p-4">
+          <div key={combo.id} className="bg-bg-card border border-border p-4">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="font-semibold flex items-center gap-2">
                   📦 {combo.name}
-                  {combo.active === 0 && <span className="text-[10px] bg-accent-red/20 text-accent-red px-1.5 py-0.5 rounded">Pasif</span>}
+                  {combo.active === 0 && <span className="text-[10px] bg-accent-red/20 text-accent-red px-1.5 py-0.5">Pasif</span>}
                 </h3>
                 <p className="text-sm text-text-muted mt-0.5">{combo.description}</p>
               </div>
@@ -100,7 +100,7 @@ export function CombosPage() {
             </div>
             <div className="flex flex-wrap gap-1.5 mt-3">
               {combo.items?.map((item) => (
-                <span key={item.id} className="text-xs bg-bg-surface px-2 py-1 rounded-lg">
+                <span key={item.id} className="text-xs bg-bg-surface px-2 py-1">
                   {item.productName} x{item.quantity} {item.isSwappable ? "↔" : ""}
                 </span>
               ))}
@@ -117,11 +117,11 @@ export function CombosPage() {
       <Modal open={formOpen} onClose={() => { setFormOpen(false); setEditCombo(null); }} title={editCombo ? "Menüyü Düzenle" : "Yeni Menü"} size="lg">
         <div className="p-5 space-y-4">
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Menü adı"
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Açıklama"
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} placeholder="Fiyat"
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue font-mono" />
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue font-mono" />
 
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -134,26 +134,26 @@ export function CombosPage() {
               <div key={idx} className="flex gap-2 mb-2 items-center">
                 <select value={item.product_id} onChange={(e) => {
                   const next = [...items]; next[idx].product_id = e.target.value; setItems(next);
-                }} className="flex-1 bg-bg-surface border border-border rounded-lg px-2 py-2 text-sm min-h-[44px]">
+                }} className="flex-1 bg-bg-surface border border-border px-2 py-2 text-sm min-h-[44px]">
                   <option value="">Ürün seçin</option>
                   {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>
                 <input type="number" value={item.quantity} onChange={(e) => {
                   const next = [...items]; next[idx].quantity = Number(e.target.value); setItems(next);
-                }} className="w-16 bg-bg-surface border border-border rounded-lg px-2 py-2 text-sm text-center min-h-[44px]" min={1} />
+                }} className="w-16 bg-bg-surface border border-border px-2 py-2 text-sm text-center min-h-[44px]" min={1} />
                 <Toggle checked={item.is_swappable === 1} onChange={(v) => {
                   const next = [...items]; next[idx].is_swappable = v ? 1 : 0; setItems(next);
                 }} />
                 {item.is_swappable === 1 && (
                   <select value={item.swap_category_id} onChange={(e) => {
                     const next = [...items]; next[idx].swap_category_id = e.target.value; setItems(next);
-                  }} className="bg-bg-surface border border-border rounded-lg px-2 py-2 text-xs min-h-[44px]">
+                  }} className="bg-bg-surface border border-border px-2 py-2 text-xs min-h-[44px]">
                     <option value="">Swap Kat.</option>
                     {categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                   </select>
                 )}
                 <button onClick={() => setItems(items.filter((_, i) => i !== idx))}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-accent-red/20 text-accent-red">
+                  className="w-10 h-10 flex items-center justify-center hover:bg-accent-red/20 text-accent-red">
                   ×
                 </button>
               </div>

@@ -26,6 +26,11 @@ export function MenuManagePage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [bulkOpen, setBulkOpen] = useState(false);
 
+  // Category management state
+  const [catModalOpen, setCatModalOpen] = useState(false);
+  const [catForm, setCatForm] = useState({ name: "", icon: "📋", color: "#ef4444" });
+  const [editCatId, setEditCatId] = useState<string | null>(null);
+
   // Form state
   const [form, setForm] = useState({
     name: "", description: "", price: 0, category_id: "",
@@ -119,12 +124,13 @@ export function MenuManagePage() {
         <select
           value={filterCat || ""}
           onChange={(e) => setFilterCat(e.target.value || null)}
-          className="bg-bg-surface border border-border rounded-xl px-3 py-2.5 text-sm min-h-[48px]"
+          className="bg-bg-surface border border-border px-3 py-2.5 text-sm min-h-[48px]"
         >
           <option value="">Tüm Kategoriler</option>
           {categories.map((c) => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
         </select>
         <Toggle checked={showInactive} onChange={setShowInactive} label="Pasifler" />
+        <Button variant="secondary" onClick={() => setCatModalOpen(true)}>Kategoriler</Button>
         <Button variant="secondary" onClick={() => setBulkOpen(true)}>Toplu Fiyat</Button>
         <Button onClick={() => { setEditProduct(null); setFormOpen(true); }}>+ Yeni Ürün</Button>
       </div>
@@ -137,7 +143,7 @@ export function MenuManagePage() {
               <div
                 key={product.id}
                 className={cn(
-                  "flex items-center gap-4 bg-bg-card border border-border rounded-xl p-4",
+                  "flex items-center gap-4 bg-bg-card border border-border p-4",
                   product.active === 0 && "opacity-50"
                 )}
               >
@@ -145,12 +151,12 @@ export function MenuManagePage() {
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-sm">{product.name}</h3>
                     {cat && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-bg-surface text-text-muted">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-bg-surface text-text-muted">
                         {cat.icon} {cat.name}
                       </span>
                     )}
                     {product.active === 0 && (
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent-red/20 text-accent-red">Pasif</span>
+                      <span className="text-[10px] px-1.5 py-0.5 bg-accent-red/20 text-accent-red">Pasif</span>
                     )}
                   </div>
                   {product.description && <p className="text-xs text-text-muted mt-0.5">{product.description}</p>}
@@ -159,13 +165,13 @@ export function MenuManagePage() {
                 <div className="flex gap-1">
                   <button
                     onClick={() => { setEditProduct(product); setFormOpen(true); }}
-                    className="w-10 h-10 flex items-center justify-center rounded-lg bg-bg-surface hover:bg-bg-hover text-text-secondary"
+                    className="w-10 h-10 flex items-center justify-center bg-bg-surface hover:bg-bg-hover text-text-secondary"
                   >
                     ✏️
                   </button>
                   <button
                     onClick={() => setDeleteId(product.id)}
-                    className="w-10 h-10 flex items-center justify-center rounded-lg bg-bg-surface hover:bg-accent-red/20 text-text-secondary"
+                    className="w-10 h-10 flex items-center justify-center bg-bg-surface hover:bg-accent-red/20 text-text-secondary"
                   >
                     🗑️
                   </button>
@@ -182,18 +188,18 @@ export function MenuManagePage() {
           <div>
             <label className="text-xs text-text-secondary mb-1 block">Ürün Adı</label>
             <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+              className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           </div>
           <div>
             <label className="text-xs text-text-secondary mb-1 block">Açıklama</label>
             <input value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })}
-              className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+              className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-text-secondary mb-1 block">Kategori</label>
               <select value={form.category_id} onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-                className="w-full bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]">
+                className="w-full bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]">
                 <option value="">Seçin</option>
                 {categories.map((c) => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
               </select>
@@ -202,7 +208,7 @@ export function MenuManagePage() {
               <label className="text-xs text-text-secondary mb-1 block">Fiyat</label>
               <button
                 onClick={() => setPriceNumpad(true)}
-                className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-left font-mono text-sm min-h-[48px]"
+                className="w-full bg-bg-surface border border-border px-4 py-3 text-left font-mono text-sm min-h-[48px]"
               >
                 {formatPrice(form.price)}
               </button>
@@ -221,7 +227,7 @@ export function MenuManagePage() {
                     setForm({ ...form, extra_ids: ids });
                   }}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs border min-h-[36px]",
+                    "px-3 py-1.5 text-xs border min-h-[36px]",
                     form.extra_ids.includes(ext.id) ? "border-accent-blue bg-accent-blue/10 text-accent-blue" : "border-border text-text-muted"
                   )}
                 >
@@ -239,27 +245,68 @@ export function MenuManagePage() {
       <Modal open={bulkOpen} onClose={() => setBulkOpen(false)} title="Toplu Fiyat Güncelleme" size="sm">
         <div className="p-5 space-y-4">
           <select value={bulkCat} onChange={(e) => setBulkCat(e.target.value)}
-            className="w-full bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]">
+            className="w-full bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]">
             <option value="">Tüm Ürünler</option>
             {categories.map((c) => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
           </select>
           <div className="grid grid-cols-2 gap-2">
             <button onClick={() => setBulkMode("percent")}
-              className={cn("p-3 rounded-xl border min-h-[48px]", bulkMode === "percent" ? "border-accent-blue bg-accent-blue/10" : "border-border")}>
+              className={cn("p-3 border min-h-[48px]", bulkMode === "percent" ? "border-accent-blue bg-accent-blue/10" : "border-border")}>
               % Yüzde
             </button>
             <button onClick={() => setBulkMode("fixed")}
-              className={cn("p-3 rounded-xl border min-h-[48px]", bulkMode === "fixed" ? "border-accent-blue bg-accent-blue/10" : "border-border")}>
+              className={cn("p-3 border min-h-[48px]", bulkMode === "fixed" ? "border-accent-blue bg-accent-blue/10" : "border-border")}>
               ₺ Sabit
             </button>
           </div>
           <button onClick={() => setBulkNumpad(true)}
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-left font-mono min-h-[48px]">
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-left font-mono min-h-[48px]">
             {bulkValue} {bulkMode === "percent" ? "%" : "₺"}
           </button>
           <Button className="w-full" variant="primary" onClick={handleBulkPrice}>
             Uygula
           </Button>
+        </div>
+      </Modal>
+
+      {/* Category Management Modal */}
+      <Modal open={catModalOpen} onClose={() => { setCatModalOpen(false); setEditCatId(null); }} title="Kategori Yönetimi" size="md">
+        <div className="p-5">
+          <div className="flex gap-2 mb-4">
+            <input value={catForm.name} onChange={(e) => setCatForm({ ...catForm, name: e.target.value })} placeholder="Kategori adı"
+              className="flex-1 bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px]" />
+            <input value={catForm.icon} onChange={(e) => setCatForm({ ...catForm, icon: e.target.value })} placeholder="İkon"
+              className="w-16 bg-bg-surface border border-border px-2 py-3 text-sm text-center min-h-[48px]" />
+            <input type="color" value={catForm.color} onChange={(e) => setCatForm({ ...catForm, color: e.target.value })}
+              className="w-12 h-12 bg-bg-surface border border-border cursor-pointer" />
+            <Button onClick={async () => {
+              try {
+                if (editCatId) {
+                  await api.put(`/api/categories/${editCatId}`, catForm);
+                  addToast("Kategori güncellendi");
+                } else {
+                  await api.post("/api/categories", catForm);
+                  addToast("Kategori eklendi");
+                }
+                await fetchCategories();
+                setCatForm({ name: "", icon: "📋", color: "#ef4444" });
+                setEditCatId(null);
+              } catch (err: any) { addToast(err.message, "error"); }
+            }}>{editCatId ? "Güncelle" : "Ekle"}</Button>
+          </div>
+          <div className="space-y-1.5">
+            {categories.map((cat) => (
+              <div key={cat.id} className="flex items-center gap-3 bg-bg-surface border border-border p-3">
+                <span className="text-lg">{cat.icon}</span>
+                <span className="flex-1 font-medium text-sm">{cat.name}</span>
+                <div className="w-4 h-4" style={{ background: cat.color || "#ef4444" }} />
+                <button onClick={() => { setEditCatId(cat.id); setCatForm({ name: cat.name, icon: cat.icon || "📋", color: cat.color || "#ef4444" }); }}
+                  className="w-8 h-8 flex items-center justify-center hover:bg-bg-hover text-text-muted text-sm">✏️</button>
+                <button onClick={async () => { await api.delete(`/api/categories/${cat.id}`); await fetchCategories(); addToast("Kategori silindi"); }}
+                  className="w-8 h-8 flex items-center justify-center hover:bg-accent-red/20 text-text-muted text-sm">🗑️</button>
+              </div>
+            ))}
+          </div>
         </div>
       </Modal>
 

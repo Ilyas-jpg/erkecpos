@@ -117,11 +117,11 @@ export function AccountingPage() {
 
       <div className="p-4 flex flex-wrap items-center gap-3 border-b border-border shrink-0">
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-          className="bg-bg-surface border border-border rounded-xl px-3 py-2.5 text-sm min-h-[48px]" />
-        <div className="flex gap-1 bg-bg-surface rounded-xl p-1">
+          className="bg-bg-surface border border-border px-3 py-2.5 text-sm min-h-[48px]" />
+        <div className="flex gap-1 bg-bg-surface p-1">
           {tabs.map((t) => (
             <button key={t.key} onClick={() => setTab(t.key)}
-              className={cn("px-4 py-2 rounded-lg text-sm font-medium min-h-[40px] transition-all",
+              className={cn("px-4 py-2 text-sm font-medium min-h-[40px] transition-all",
                 tab === t.key ? "bg-accent-red text-white" : "text-text-secondary hover:text-text-primary")}>
               {t.label}
             </button>
@@ -134,7 +134,7 @@ export function AccountingPage() {
         {tab === "report" && report && (
           <div className="space-y-4">
             {/* Progress bar */}
-            <div className="bg-bg-card border border-border rounded-xl p-4">
+            <div className="bg-bg-card border border-border p-4">
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-text-secondary">Günlük Hedef</span>
                 <span className="font-mono">{formatPrice(report.netRevenue)} / {formatPrice(dailyTarget)}</span>
@@ -158,7 +158,7 @@ export function AccountingPage() {
                 { label: "Nakit", value: formatPrice(report.totalCash), icon: "💵", color: "text-accent-green" },
                 { label: "Kart", value: formatPrice(report.totalCard), icon: "💳", color: "text-accent-blue" },
               ].map((stat) => (
-                <div key={stat.label} className="bg-bg-card border border-border rounded-xl p-4">
+                <div key={stat.label} className="bg-bg-card border border-border p-4">
                   <div className="flex items-center gap-2 mb-1">
                     <span>{stat.icon}</span>
                     <span className="text-xs text-text-muted">{stat.label}</span>
@@ -178,7 +178,7 @@ export function AccountingPage() {
         {tab === "orders" && (
           <div className="space-y-2">
             {orders.length === 0 ? <EmptyState title="Bugün sipariş yok" icon="📋" /> : orders.map((order) => (
-              <div key={order.id} className="bg-bg-card border border-border rounded-xl p-4">
+              <div key={order.id} className="bg-bg-card border border-border p-4">
                 <div className="flex justify-between items-start">
                   <div>
                     <span className="font-mono font-bold">#{String(order.order_number).padStart(3, "0")}</span>
@@ -211,9 +211,9 @@ export function AccountingPage() {
           <div className="space-y-3">
             <Button variant="secondary" onClick={() => setCashModal(true)} className="w-full">+ Kasa Hareketi</Button>
             {cashEntries.length === 0 ? <EmptyState title="Kasa hareketi yok" icon="💰" /> : cashEntries.map((entry) => (
-              <div key={entry.id} className="bg-bg-card border border-border rounded-xl p-4 flex justify-between items-center">
+              <div key={entry.id} className="bg-bg-card border border-border p-4 flex justify-between items-center">
                 <div>
-                  <span className="text-xs bg-bg-surface px-2 py-0.5 rounded">{entry.type}</span>
+                  <span className="text-xs bg-bg-surface px-2 py-0.5">{entry.type}</span>
                   <p className="text-sm mt-1">{entry.description}</p>
                   <span className="text-xs text-text-muted">{formatTime(entry.created_at)}</span>
                 </div>
@@ -236,7 +236,7 @@ export function AccountingPage() {
             Tutar Değiştir (Kısmi İade)
           </Button>
           <input value={refundReason} onChange={(e) => setRefundReason(e.target.value)} placeholder="İade sebebi"
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <Button variant="danger" className="w-full" onClick={handleRefund}>İade Yap</Button>
         </div>
       </Modal>
@@ -247,7 +247,7 @@ export function AccountingPage() {
           <div className="grid grid-cols-3 gap-2">
             {([["cash_in", "Giriş"], ["cash_out", "Çıkış"], ["expense", "Gider"]] as const).map(([key, label]) => (
               <button key={key} onClick={() => setCashType(key)}
-                className={cn("p-3 rounded-xl border text-sm min-h-[48px]", cashType === key ? "border-accent-blue bg-accent-blue/10" : "border-border")}>
+                className={cn("p-3 border text-sm min-h-[48px]", cashType === key ? "border-accent-blue bg-accent-blue/10" : "border-border")}>
                 {label}
               </button>
             ))}
@@ -256,7 +256,7 @@ export function AccountingPage() {
             {cashAmount} ₺
           </Button>
           <input value={cashDesc} onChange={(e) => setCashDesc(e.target.value)} placeholder="Açıklama"
-            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <Button className="w-full" onClick={handleCashEntry}>Kaydet</Button>
         </div>
       </Modal>
@@ -272,7 +272,7 @@ export function AccountingPage() {
                 {item.extras?.length > 0 && (
                   <div className="flex gap-1 mt-0.5">
                     {item.extras.map((e: any) => (
-                      <span key={e.id} className="text-[10px] bg-bg-surface px-1 rounded">{e.extraName}</span>
+                      <span key={e.id} className="text-[10px] bg-bg-surface px-1">{e.extraName}</span>
                     ))}
                   </div>
                 )}

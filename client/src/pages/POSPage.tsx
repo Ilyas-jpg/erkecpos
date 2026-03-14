@@ -99,7 +99,7 @@ export function POSPage() {
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap min-h-[40px] transition-all",
+              "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all",
               !selectedCategory ? "bg-accent-red text-white" : "bg-bg-surface text-text-secondary"
             )}
           >
@@ -110,7 +110,7 @@ export function POSPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap min-h-[40px] transition-all",
+                "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all",
                 selectedCategory === cat.id ? "bg-accent-red text-white" : "bg-bg-surface text-text-secondary"
               )}
             >
@@ -139,7 +139,7 @@ export function POSPage() {
       {cartCount > 0 && !showOrder && (
         <button
           onClick={() => setShowOrder(true)}
-          className="lg:hidden fixed bottom-20 left-4 right-4 bg-accent-green text-white py-4 rounded-2xl
+          className="lg:hidden fixed bottom-20 left-4 right-4 bg-accent-green text-white py-4
             font-semibold text-center shadow-lg active:scale-[0.98] z-30"
         >
           Sepeti Gör ({cartCount} ürün)
