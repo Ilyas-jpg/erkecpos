@@ -1,0 +1,5 @@
+{
+  "name": "pos-system",
+  "private": true,
+  "workspaces": ["server", "client"]
+}

@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-darkest: #0C0C14;
+  --color-bg-card: #14141F;
+  --color-bg-surface: #1C1C2E;
+  --color-bg-hover: #252540;
+  --color-accent-red: #EF4444;
+  --color-accent-green: #10B981;
+  --color-accent-amber: #F59E0B;
+  --color-accent-blue: #3B82F6;
+  --color-accent-purple: #A855F7;
+  --color-text-primary: #F1F1F1;
+  --color-text-secondary: #888888;
+  --color-text-muted: #444444;
+  --color-border: #2A2A40;
+
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Light theme */
+.light {
+  --color-bg-darkest: #F5F5F8;
+  --color-bg-card: #FFFFFF;
+  --color-bg-surface: #EEEEF2;
+  --color-bg-hover: #E0E0E8;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #666666;
+  --color-text-muted: #AAAAAA;
+  --color-border: #D0D0DD;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  background: var(--color-bg-darkest);
+  color: var(--color-text-primary);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* Touch-friendly active states */
+button, [role="button"] {
+  touch-action: manipulation;
+}
+button:active, [role="button"]:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+/* Momentum scrolling */
+.scroll-container {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Number font */
+.font-mono {
+  font-family: var(--font-mono);
+}
