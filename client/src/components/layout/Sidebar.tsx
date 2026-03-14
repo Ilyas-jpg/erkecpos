@@ -1,15 +1,16 @@
 import { NavLink } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import { useStore } from "../../lib/store";
+import { Store, ClipboardList, Package, Target, BarChart3, Trash2, Settings, LogOut, Sun, Moon } from "lucide-react";
 
 const navItems = [
-  { path: "/", icon: "🏪", label: "POS", adminOnly: false },
-  { path: "/menu", icon: "📋", label: "Menü", adminOnly: true },
-  { path: "/combos", icon: "📦", label: "Menüler", adminOnly: true },
-  { path: "/campaigns", icon: "🎯", label: "Kampanya", adminOnly: true },
-  { path: "/accounting", icon: "📊", label: "Muhasebe", adminOnly: true },
-  { path: "/waste", icon: "🗑️", label: "Zayi", adminOnly: true },
-  { path: "/settings", icon: "⚙️", label: "Ayarlar", adminOnly: true },
+  { path: "/", icon: Store, label: "POS", adminOnly: false },
+  { path: "/menu", icon: ClipboardList, label: "Men\u00fc", adminOnly: true },
+  { path: "/combos", icon: Package, label: "Men\u00fcler", adminOnly: true },
+  { path: "/campaigns", icon: Target, label: "Kampanya", adminOnly: true },
+  { path: "/accounting", icon: BarChart3, label: "Muhasebe", adminOnly: true },
+  { path: "/waste", icon: Trash2, label: "Zayi", adminOnly: true },
+  { path: "/settings", icon: Settings, label: "Ayarlar", adminOnly: true },
 ];
 
 export function Sidebar() {
@@ -19,50 +20,55 @@ export function Sidebar() {
   const logoutAdmin = useStore((s) => s.logoutAdmin);
 
   return (
-    <aside className="hidden lg:flex flex-col w-[72px] bg-bg-card border-r border-border h-full">
-      <div className="flex items-center justify-center h-14 border-b border-border">
-        <span className="text-xl">🍽️</span>
+    <aside className="hidden lg:flex flex-col w-[76px] bg-bg-card/50 backdrop-blur-xl border-r border-white/[0.06] h-full">
+      <div className="flex items-center justify-center h-14 border-b border-white/[0.06]">
+        <div className="w-8 h-8 rounded-lg bg-accent-blue flex items-center justify-center">
+          <Store className="w-4 h-4 text-white" />
+        </div>
       </div>
 
-      <nav className="flex-1 flex flex-col items-center gap-0.5 py-2 scroll-container">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            className={({ isActive }) =>
-              cn(
-                "w-14 h-14 flex flex-col items-center justify-center transition-all text-center gap-0.5 relative",
-                isActive
-                  ? "bg-accent-red/15 text-accent-red"
-                  : "text-text-muted hover:bg-bg-surface hover:text-text-secondary"
-              )
-            }
-          >
-            <span className="text-lg">{item.icon}</span>
-            <span className="text-[9px] font-medium leading-tight tracking-wider">{item.label}</span>
-            {item.adminOnly && !isAdmin && (
-              <span className="absolute top-1 right-1 text-[7px] opacity-60">🔒</span>
-            )}
-          </NavLink>
-        ))}
+      <nav className="flex-1 flex flex-col items-center gap-1 py-3 scroll-container">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                cn(
+                  "w-14 h-14 flex flex-col items-center justify-center rounded-xl transition-all text-center gap-1 relative",
+                  isActive
+                    ? "bg-accent-blue/15 text-accent-blue"
+                    : "text-text-secondary hover:bg-white/[0.06] hover:text-text-primary"
+                )
+              }
+            >
+              <Icon className="w-5 h-5" />
+              <span className="text-[10px] font-medium leading-tight">{item.label}</span>
+              {item.adminOnly && !isAdmin && (
+                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-accent-amber" />
+              )}
+            </NavLink>
+          );
+        })}
       </nav>
 
-      <div className="flex flex-col items-center gap-0.5 py-2 border-t border-border">
+      <div className="flex flex-col items-center gap-1 py-3 border-t border-white/[0.06]">
         {isAdmin && (
           <button
             onClick={logoutAdmin}
-            className="w-14 h-12 flex flex-col items-center justify-center text-text-muted hover:text-accent-red transition-all"
-            title="Çıkış"
+            className="w-14 h-12 flex flex-col items-center justify-center rounded-xl text-text-secondary hover:text-accent-red hover:bg-accent-red/10 transition-all"
+            title="\u00c7\u0131k\u0131\u015f"
           >
-            <span className="text-base">🔓</span>
-            <span className="text-[8px] mt-0.5">Çıkış</span>
+            <LogOut className="w-5 h-5" />
+            <span className="text-[9px] mt-0.5">\u00c7\u0131k\u0131\u015f</span>
           </button>
         )}
         <button
           onClick={toggleTheme}
-          className="w-14 h-12 flex items-center justify-center text-text-muted hover:text-text-secondary transition-all text-lg"
+          className="w-14 h-12 flex items-center justify-center rounded-xl text-text-secondary hover:bg-white/[0.06] transition-all"
         >
-          {theme === "dark" ? "☀️" : "🌙"}
+          {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </button>
       </div>
     </aside>

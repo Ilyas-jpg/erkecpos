@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useStore } from "../lib/store";
 import { api } from "../lib/api";
+import { Trash2 } from "lucide-react";
 import { formatPrice, formatTime, todayISO } from "../lib/utils";
 import { Button } from "../components/shared/Button";
 import { TopBar } from "../components/layout/TopBar";
@@ -70,45 +71,45 @@ export function WastePage() {
       <div className="p-4 border-b border-border shrink-0">
         <div className="flex items-center gap-3 mb-4">
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-            className="bg-bg-surface border border-border px-3 py-2.5 text-sm min-h-[48px]" />
-          <div className="bg-accent-red/10 border border-accent-red/30 px-4 py-2.5">
+            className="bg-bg-surface border border-border rounded-xl px-3 py-2.5 text-sm min-h-[48px]" />
+          <div className="bg-accent-red/10 border border-accent-red/30 rounded-xl px-4 py-2.5">
             <span className="text-xs text-accent-red">Toplam Zayi</span>
             <span className="font-mono text-lg font-bold text-accent-red ml-2">{formatPrice(totalCost)}</span>
           </div>
         </div>
 
         {/* Add form */}
-        <div className="bg-bg-card border border-border p-4 space-y-3">
+        <div className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <select value={productId} onChange={(e) => setProductId(e.target.value)}
-              className="bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]">
+              className="bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]">
               <option value="">Ürün seçin</option>
               {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
             <select value={reason} onChange={(e) => setReason(e.target.value)}
-              className="bg-bg-surface border border-border px-3 py-3 text-sm min-h-[48px]">
+              className="bg-bg-surface border border-border rounded-xl px-3 py-3 text-sm min-h-[48px]">
               {Object.entries(reasonLabels).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
             </select>
           </div>
           <div className="grid grid-cols-3 gap-3">
             <button onClick={() => setQtyNumpad(true)}
-              className="bg-bg-surface border border-border px-4 py-3 text-left font-mono text-sm min-h-[48px]">
+              className="bg-bg-surface border border-border rounded-xl px-4 py-3 text-left font-mono text-sm min-h-[48px]">
               Adet: {quantity}
             </button>
             <button onClick={() => setCostNumpad(true)}
-              className="bg-bg-surface border border-border px-4 py-3 text-left font-mono text-sm min-h-[48px]">
+              className="bg-bg-surface border border-border rounded-xl px-4 py-3 text-left font-mono text-sm min-h-[48px]">
               Maliyet: {formatPrice(costEstimate)}
             </button>
             <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Not"
-              className="bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+              className="bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           </div>
           <Button variant="danger" className="w-full" onClick={handleAdd}>Zayi Kaydet</Button>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto scroll-container p-4 space-y-2">
-        {entries.length === 0 ? <EmptyState title="Bugün zayi kaydı yok" icon="🗑️" /> : entries.map((entry) => (
-          <div key={entry.id} className="bg-bg-card border border-border p-4 flex justify-between items-center">
+        {entries.length === 0 ? <EmptyState title="Bugün zayi kaydı yok" icon={<Trash2 className="w-7 h-7 text-text-muted" />} /> : entries.map((entry) => (
+          <div key={entry.id} className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm flex justify-between items-center">
             <div>
               <h4 className="font-medium text-sm">{entry.productName}</h4>
               <div className="flex gap-2 mt-0.5 text-xs text-text-muted">

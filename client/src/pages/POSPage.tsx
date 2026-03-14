@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LayoutGrid } from "lucide-react";
 import { useStore, type Product, type Combo } from "../lib/store";
 import { cn } from "../lib/utils";
 import { ProductGrid } from "../components/pos/ProductGrid";
@@ -66,13 +67,13 @@ export function POSPage() {
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "w-full py-3 px-2 flex flex-col items-center gap-1 text-center transition-all",
+              "w-full py-3 px-2 flex flex-col items-center gap-1 text-center transition-all rounded-xl",
               !selectedCategory
                 ? "bg-accent-red/10 text-accent-red border-r-2 border-accent-red"
                 : "text-text-secondary hover:bg-bg-surface"
             )}
           >
-            <span className="text-xl">🏠</span>
+            <LayoutGrid className="w-5 h-5" />
             <span className="text-[10px] font-medium leading-tight">Tümü</span>
           </button>
           {categories.filter((c) => c.active === 1).map((cat) => (
@@ -80,7 +81,7 @@ export function POSPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "w-full py-3 px-2 flex flex-col items-center gap-1 text-center transition-all",
+                "w-full py-3 px-2 flex flex-col items-center gap-1 text-center transition-all rounded-xl",
                 selectedCategory === cat.id
                   ? "bg-accent-red/10 text-accent-red border-r-2 border-accent-red"
                   : "text-text-secondary hover:bg-bg-surface"
@@ -99,7 +100,7 @@ export function POSPage() {
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all",
+              "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all rounded-xl",
               !selectedCategory ? "bg-accent-red text-white" : "bg-bg-surface text-text-secondary"
             )}
           >
@@ -110,7 +111,7 @@ export function POSPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all",
+                "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all rounded-xl",
                 selectedCategory === cat.id ? "bg-accent-red text-white" : "bg-bg-surface text-text-secondary"
               )}
             >
@@ -140,7 +141,7 @@ export function POSPage() {
         <button
           onClick={() => setShowOrder(true)}
           className="lg:hidden fixed bottom-20 left-4 right-4 bg-accent-green text-white py-4
-            font-semibold text-center shadow-lg active:scale-[0.98] z-30"
+            font-semibold text-center shadow-lg active:scale-[0.98] z-30 rounded-2xl"
         >
           Sepeti Gör ({cartCount} ürün)
         </button>

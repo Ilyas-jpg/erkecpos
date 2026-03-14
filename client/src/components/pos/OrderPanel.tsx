@@ -6,6 +6,7 @@ import { OrderItem } from "./OrderItem";
 import { PaymentModal } from "./PaymentModal";
 import { Button } from "../shared/Button";
 import { EmptyState } from "../shared/EmptyState";
+import { ShoppingCart } from "lucide-react";
 
 export function OrderPanel() {
   const cart = useStore((s) => s.cart);
@@ -49,7 +50,7 @@ export function OrderPanel() {
 
         <div className="flex-1 overflow-y-auto scroll-container p-3 space-y-1.5">
           {cart.length === 0 ? (
-            <EmptyState icon="🛒" title="Sepet boş" description="Ürün eklemek için menüden seçin" />
+            <EmptyState icon={<ShoppingCart className="w-7 h-7 text-text-muted" />} title="Sepet boş" description="Ürün eklemek için menüden seçin" />
           ) : (
             <AnimatePresence>
               {cart.map((item) => (

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
+import { Search } from "lucide-react";
 import { useStore, type Product } from "../../lib/store";
 import { ProductCard } from "./ProductCard";
 import { ComboCard } from "./ComboCard";
@@ -99,7 +100,7 @@ export function ProductGrid({ search, onSearchChange, onProductTap, onComboTap }
             </AnimatePresence>
           </div>
         ) : (
-          <EmptyState icon="🔍" title="Ürün bulunamadı" />
+          <EmptyState icon={<Search className="w-7 h-7 text-text-muted" />} title="Ürün bulunamadı" />
         )}
       </div>
     </div>

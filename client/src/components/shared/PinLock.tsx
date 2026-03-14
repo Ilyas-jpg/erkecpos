@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { Lock, Delete } from "lucide-react";
 import { useStore } from "../../lib/store";
 
 export function PinLock({ children }: { children: React.ReactNode }) {
@@ -19,7 +20,6 @@ export function PinLock({ children }: { children: React.ReactNode }) {
     } else if (pin.length < 8) {
       const newPin = pin + key;
       setPin(newPin);
-
       if (newPin.length >= 6) {
         setTimeout(() => {
           if (loginAdmin(newPin)) {
@@ -52,42 +52,42 @@ export function PinLock({ children }: { children: React.ReactNode }) {
       <motion.div
         animate={shake ? { x: [-12, 12, -12, 12, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-xs"
+        className="w-full max-w-[280px]"
       >
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-bg-card border border-border flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl">🔒</span>
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 rounded-full bg-bg-card flex items-center justify-center mx-auto mb-5 shadow-lg">
+            <Lock className="w-8 h-8 text-text-secondary" />
           </div>
-          <h1 className="text-lg font-semibold tracking-widest uppercase mb-1">Yönetim Paneli</h1>
-          <p className="text-xs text-text-muted tracking-wider">PIN kodunu girin</p>
+          <h1 className="text-[22px] font-semibold mb-1">Yönetim Paneli</h1>
+          <p className="text-[13px] text-text-secondary">PIN kodunuzu girin</p>
         </div>
 
-        <div className="flex items-center justify-center gap-3 mb-8">
+        <div className="flex items-center justify-center gap-4 mb-10">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <motion.div
               key={i}
-              animate={pin.length > i ? { scale: [1, 1.3, 1] } : {}}
+              animate={pin.length > i ? { scale: [1, 1.4, 1] } : {}}
               transition={{ duration: 0.15 }}
-              className={`w-3 h-3 rounded-full border-2 transition-all ${
+              className={`w-3.5 h-3.5 rounded-full transition-all duration-200 ${
                 pin.length > i
-                  ? "bg-accent-green border-accent-green"
-                  : "bg-transparent border-text-muted"
+                  ? "bg-accent-green shadow-[0_0_8px_rgba(48,209,88,0.4)]"
+                  : "bg-bg-surface"
               }`}
             />
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-1.5 mb-3">
+        <div className="grid grid-cols-3 gap-3 mb-4">
           {keys.map((key) => (
             <button
               key={key}
               onClick={() => handleKey(key)}
-              className={`h-14 text-lg font-semibold transition-all
+              className={`h-16 rounded-2xl text-xl font-medium transition-all active:scale-95
                 ${key === "C" ? "bg-accent-red/15 text-accent-red" :
-                  key === "DEL" ? "bg-bg-surface text-text-secondary text-base" :
-                  "bg-bg-card border border-border text-text-primary hover:bg-bg-surface"}`}
+                  key === "DEL" ? "bg-bg-surface text-text-secondary flex items-center justify-center" :
+                  "bg-bg-card text-text-primary hover:bg-bg-surface shadow-sm"}`}
             >
-              {key === "DEL" ? "←" : key}
+              {key === "DEL" ? <Delete className="w-5 h-5" /> : key}
             </button>
           ))}
         </div>
@@ -95,10 +95,10 @@ export function PinLock({ children }: { children: React.ReactNode }) {
         <button
           onClick={handleSubmit}
           disabled={pin.length < 4}
-          className="w-full h-14 bg-accent-green text-white font-semibold text-sm tracking-widest uppercase
-            disabled:opacity-30 disabled:pointer-events-none transition-all"
+          className="w-full h-14 bg-accent-blue text-white rounded-2xl font-semibold text-[17px]
+            disabled:opacity-30 disabled:pointer-events-none active:scale-[0.97] transition-all shadow-sm"
         >
-          Giriş
+          Giriş Yap
         </button>
       </motion.div>
     </div>

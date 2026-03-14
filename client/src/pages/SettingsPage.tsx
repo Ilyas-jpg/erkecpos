@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Moon, Sun, Percent, Building2, KeyRound, Target } from "lucide-react";
 import { useStore } from "../lib/store";
 import { api } from "../lib/api";
 import { Button } from "../components/shared/Button";
@@ -46,7 +47,7 @@ export function SettingsPage() {
     }
   };
 
-  const inputClass = "w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] text-text-primary placeholder:text-text-muted transition-all";
+  const inputClass = "w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] text-text-primary placeholder:text-text-muted transition-all";
   const inputMonoClass = inputClass + " font-mono";
 
   return (
@@ -56,14 +57,14 @@ export function SettingsPage() {
       <div className="flex-1 overflow-y-auto scroll-container p-5 max-w-2xl">
         <div className="space-y-5">
           {/* Theme */}
-          <section className="bg-bg-card border border-border p-5">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4">Tema</h3>
+          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2">{theme === "dark" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />} Tema</h3>
             <Toggle checked={theme === "light"} onChange={toggleTheme} label={theme === "dark" ? "Koyu Tema" : "Açık Tema"} />
           </section>
 
           {/* Service Charge */}
-          <section className="bg-bg-card border border-border p-5">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4">Servis Ücreti</h3>
+          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Percent className="w-4 h-4" /> Servis Ücreti</h3>
             <Toggle checked={serviceEnabled} onChange={(v) => setServiceEnabled(v)} label="Aktif" />
             <div className="mt-3">
               <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Oran (%)</label>
@@ -76,8 +77,8 @@ export function SettingsPage() {
           </section>
 
           {/* Tax Rate */}
-          <section className="bg-bg-card border border-border p-5">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4">KDV</h3>
+          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Percent className="w-4 h-4" /> KDV</h3>
             <div>
               <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Oran (%)</label>
               <input type="number" value={taxRate} onChange={(e) => setTaxRate(Number(e.target.value))}
@@ -89,8 +90,8 @@ export function SettingsPage() {
           </section>
 
           {/* Business Info */}
-          <section className="bg-bg-card border border-border p-5">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4">İşletme Bilgileri</h3>
+          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Building2 className="w-4 h-4" /> İşletme Bilgileri</h3>
             <div className="space-y-3">
               <div>
                 <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">İşletme Adı</label>
@@ -115,8 +116,8 @@ export function SettingsPage() {
           </section>
 
           {/* Admin PIN */}
-          <section className="bg-bg-card border border-border p-5">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-2">Yönetim PIN Kodu</h3>
+          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-2 flex items-center gap-2"><KeyRound className="w-4 h-4" /> Yönetim PIN Kodu</h3>
             <p className="text-[10px] text-text-muted mb-4">Yönetim paneline erişim için kullanılan PIN. Varsayılan: 123456</p>
             <input
               type="text"
@@ -133,8 +134,8 @@ export function SettingsPage() {
           </section>
 
           {/* Daily Target */}
-          <section className="bg-bg-card border border-border p-5 mb-20">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4">Günlük Hedef</h3>
+          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm mb-20">
+            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Target className="w-4 h-4" /> Günlük Hedef</h3>
             <input type="number" value={dailyTarget} onChange={(e) => setDailyTarget(Number(e.target.value))}
               className={inputMonoClass} />
             <Button variant="secondary" className="mt-4 w-full" onClick={() => save("daily_target", { amount: dailyTarget })}>

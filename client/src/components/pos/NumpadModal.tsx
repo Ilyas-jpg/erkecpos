@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Delete } from "lucide-react";
 import { Modal } from "../shared/Modal";
 import { Button } from "../shared/Button";
 
@@ -47,7 +48,7 @@ export function NumpadModal({
   return (
     <Modal open={open} onClose={onClose} title={title} size="sm">
       <div className="p-5">
-        <div className="bg-bg-surface border border-border p-4 mb-4 text-right">
+        <div className="bg-bg-surface border border-border rounded-2xl p-4 mb-4 text-right">
           <span className="font-mono text-3xl font-bold text-text-primary">
             {value || "0"}
           </span>
@@ -59,7 +60,7 @@ export function NumpadModal({
             <button
               key={key}
               onClick={() => handleKey(key)}
-              className={`h-14 text-lg font-semibold transition-all
+              className={`h-14 text-lg font-semibold rounded-xl transition-all active:scale-95
                 ${key === "C" ? "bg-accent-red/15 text-accent-red hover:bg-accent-red/25" : "bg-bg-surface hover:bg-bg-hover text-text-primary border border-border"}`}
             >
               {key}
@@ -70,9 +71,9 @@ export function NumpadModal({
         <div className="flex gap-2">
           <button
             onClick={() => handleKey("DEL")}
-            className="flex-1 h-12 bg-bg-surface hover:bg-bg-hover text-text-secondary font-medium border border-border"
+            className="flex-1 h-12 bg-bg-surface hover:bg-bg-hover text-text-secondary font-medium border border-border rounded-xl flex items-center justify-center gap-2"
           >
-            ← Sil
+            <Delete className="w-4 h-4" /> Sil
           </button>
           <Button size="lg" variant="success" className="flex-[2]" onClick={handleConfirm}>
             Onayla

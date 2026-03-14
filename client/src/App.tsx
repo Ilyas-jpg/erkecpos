@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Store } from "lucide-react";
 import { useStore } from "./lib/store";
 import { connectRealtime } from "./lib/realtime";
 import { Sidebar } from "./components/layout/Sidebar";
@@ -46,7 +47,9 @@ export default function App() {
     return (
       <div className="h-full flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl mb-4 animate-pulse">🍽️</div>
+          <div className="w-12 h-12 rounded-2xl bg-accent-blue flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <Store className="w-6 h-6 text-white" />
+          </div>
           <p className="text-text-secondary">Yükleniyor...</p>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ClipboardList, Coins, CheckCircle, Undo2, Tag, UtensilsCrossed, FileText, Trash2, Banknote, CreditCard, Wallet } from "lucide-react";
 import { api } from "../lib/api";
 import { formatPrice, formatDate, formatTime, todayISO, cn } from "../lib/utils";
 import { Button } from "../components/shared/Button";
@@ -117,11 +118,11 @@ export function AccountingPage() {
 
       <div className="p-4 flex flex-wrap items-center gap-3 border-b border-border shrink-0">
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
-          className="bg-bg-surface border border-border px-3 py-2.5 text-sm min-h-[48px]" />
-        <div className="flex gap-1 bg-bg-surface p-1">
+          className="bg-bg-surface border border-border rounded-xl px-3 py-2.5 text-sm min-h-[48px]" />
+        <div className="flex gap-1 bg-bg-surface rounded-xl p-1">
           {tabs.map((t) => (
             <button key={t.key} onClick={() => setTab(t.key)}
-              className={cn("px-4 py-2 text-sm font-medium min-h-[40px] transition-all",
+              className={cn("px-4 py-2 text-sm font-medium min-h-[40px] transition-all rounded-lg",
                 tab === t.key ? "bg-accent-red text-white" : "text-text-secondary hover:text-text-primary")}>
               {t.label}
             </button>
@@ -134,7 +135,7 @@ export function AccountingPage() {
         {tab === "report" && report && (
           <div className="space-y-4">
             {/* Progress bar */}
-            <div className="bg-bg-card border border-border p-4">
+            <div className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm">
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-text-secondary">Günlük Hedef</span>
                 <span className="font-mono">{formatPrice(report.netRevenue)} / {formatPrice(dailyTarget)}</span>
@@ -147,20 +148,20 @@ export function AccountingPage() {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {[
-                { label: "Sipariş", value: report.totalOrders, icon: "📋", color: "text-accent-blue" },
-                { label: "Brüt Ciro", value: formatPrice(report.totalRevenue), icon: "💰", color: "text-accent-green" },
-                { label: "Net Gelir", value: formatPrice(report.netRevenue), icon: "✅", color: "text-accent-green" },
-                { label: "İadeler", value: formatPrice(report.totalRefunds), icon: "↩️", color: "text-accent-red" },
-                { label: "İndirimler", value: formatPrice(report.totalDiscounts), icon: "🏷️", color: "text-accent-amber" },
-                { label: "Servis", value: formatPrice(report.totalServiceCharge), icon: "🍽️", color: "text-text-secondary" },
-                { label: "KDV", value: formatPrice(report.totalTax), icon: "📄", color: "text-text-secondary" },
-                { label: "Zayi", value: formatPrice(report.totalWasteCost), icon: "🗑️", color: "text-accent-red" },
-                { label: "Nakit", value: formatPrice(report.totalCash), icon: "💵", color: "text-accent-green" },
-                { label: "Kart", value: formatPrice(report.totalCard), icon: "💳", color: "text-accent-blue" },
+                { label: "Sipariş", value: report.totalOrders, icon: <ClipboardList className="w-4 h-4" />, color: "text-accent-blue" },
+                { label: "Brüt Ciro", value: formatPrice(report.totalRevenue), icon: <Coins className="w-4 h-4" />, color: "text-accent-green" },
+                { label: "Net Gelir", value: formatPrice(report.netRevenue), icon: <CheckCircle className="w-4 h-4" />, color: "text-accent-green" },
+                { label: "İadeler", value: formatPrice(report.totalRefunds), icon: <Undo2 className="w-4 h-4" />, color: "text-accent-red" },
+                { label: "İndirimler", value: formatPrice(report.totalDiscounts), icon: <Tag className="w-4 h-4" />, color: "text-accent-amber" },
+                { label: "Servis", value: formatPrice(report.totalServiceCharge), icon: <UtensilsCrossed className="w-4 h-4" />, color: "text-text-secondary" },
+                { label: "KDV", value: formatPrice(report.totalTax), icon: <FileText className="w-4 h-4" />, color: "text-text-secondary" },
+                { label: "Zayi", value: formatPrice(report.totalWasteCost), icon: <Trash2 className="w-4 h-4" />, color: "text-accent-red" },
+                { label: "Nakit", value: formatPrice(report.totalCash), icon: <Banknote className="w-4 h-4" />, color: "text-accent-green" },
+                { label: "Kart", value: formatPrice(report.totalCard), icon: <CreditCard className="w-4 h-4" />, color: "text-accent-blue" },
               ].map((stat) => (
-                <div key={stat.label} className="bg-bg-card border border-border p-4">
+                <div key={stat.label} className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm">
                   <div className="flex items-center gap-2 mb-1">
-                    <span>{stat.icon}</span>
+                    <span className={stat.color}>{stat.icon}</span>
                     <span className="text-xs text-text-muted">{stat.label}</span>
                   </div>
                   <span className={`font-mono text-lg font-bold ${stat.color}`}>
@@ -177,8 +178,8 @@ export function AccountingPage() {
         {/* Orders */}
         {tab === "orders" && (
           <div className="space-y-2">
-            {orders.length === 0 ? <EmptyState title="Bugün sipariş yok" icon="📋" /> : orders.map((order) => (
-              <div key={order.id} className="bg-bg-card border border-border p-4">
+            {orders.length === 0 ? <EmptyState title="Bugün sipariş yok" icon={<ClipboardList className="w-7 h-7 text-text-muted" />} /> : orders.map((order) => (
+              <div key={order.id} className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm">
                 <div className="flex justify-between items-start">
                   <div>
                     <span className="font-mono font-bold">#{String(order.order_number).padStart(3, "0")}</span>
@@ -210,8 +211,8 @@ export function AccountingPage() {
         {tab === "cash" && (
           <div className="space-y-3">
             <Button variant="secondary" onClick={() => setCashModal(true)} className="w-full">+ Kasa Hareketi</Button>
-            {cashEntries.length === 0 ? <EmptyState title="Kasa hareketi yok" icon="💰" /> : cashEntries.map((entry) => (
-              <div key={entry.id} className="bg-bg-card border border-border p-4 flex justify-between items-center">
+            {cashEntries.length === 0 ? <EmptyState title="Kasa hareketi yok" icon={<Wallet className="w-7 h-7 text-text-muted" />} /> : cashEntries.map((entry) => (
+              <div key={entry.id} className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm flex justify-between items-center">
                 <div>
                   <span className="text-xs bg-bg-surface px-2 py-0.5">{entry.type}</span>
                   <p className="text-sm mt-1">{entry.description}</p>
@@ -236,7 +237,7 @@ export function AccountingPage() {
             Tutar Değiştir (Kısmi İade)
           </Button>
           <input value={refundReason} onChange={(e) => setRefundReason(e.target.value)} placeholder="İade sebebi"
-            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <Button variant="danger" className="w-full" onClick={handleRefund}>İade Yap</Button>
         </div>
       </Modal>
@@ -256,7 +257,7 @@ export function AccountingPage() {
             {cashAmount} ₺
           </Button>
           <input value={cashDesc} onChange={(e) => setCashDesc(e.target.value)} placeholder="Açıklama"
-            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <Button className="w-full" onClick={handleCashEntry}>Kaydet</Button>
         </div>
       </Modal>

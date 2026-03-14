@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Package } from "lucide-react";
 import { useStore, type Combo } from "../lib/store";
 import { api } from "../lib/api";
 import { formatPrice, cn } from "../lib/utils";
@@ -82,11 +83,11 @@ export function CombosPage() {
 
       <div className="flex-1 overflow-y-auto scroll-container p-4 grid gap-3 auto-rows-min">
         {combos.map((combo) => (
-          <div key={combo.id} className="bg-bg-card border border-border p-4">
+          <div key={combo.id} className="bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="font-semibold flex items-center gap-2">
-                  📦 {combo.name}
+                  <Package className="w-4 h-4 text-accent-purple" /> {combo.name}
                   {combo.active === 0 && <span className="text-[10px] bg-accent-red/20 text-accent-red px-1.5 py-0.5">Pasif</span>}
                 </h3>
                 <p className="text-sm text-text-muted mt-0.5">{combo.description}</p>
@@ -100,7 +101,7 @@ export function CombosPage() {
             </div>
             <div className="flex flex-wrap gap-1.5 mt-3">
               {combo.items?.map((item) => (
-                <span key={item.id} className="text-xs bg-bg-surface px-2 py-1">
+                <span key={item.id} className="text-xs bg-bg-surface rounded-lg px-2 py-1">
                   {item.productName} x{item.quantity} {item.isSwappable ? "↔" : ""}
                 </span>
               ))}
@@ -117,11 +118,11 @@ export function CombosPage() {
       <Modal open={formOpen} onClose={() => { setFormOpen(false); setEditCombo(null); }} title={editCombo ? "Menüyü Düzenle" : "Yeni Menü"} size="lg">
         <div className="p-5 space-y-4">
           <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Menü adı"
-            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Açıklama"
-            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
+            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue" />
           <input type="number" value={price} onChange={(e) => setPrice(Number(e.target.value))} placeholder="Fiyat"
-            className="w-full bg-bg-surface border border-border px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue font-mono" />
+            className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] focus:outline-none focus:border-accent-blue font-mono" />
 
           <div>
             <div className="flex items-center justify-between mb-2">
@@ -134,7 +135,7 @@ export function CombosPage() {
               <div key={idx} className="flex gap-2 mb-2 items-center">
                 <select value={item.product_id} onChange={(e) => {
                   const next = [...items]; next[idx].product_id = e.target.value; setItems(next);
-                }} className="flex-1 bg-bg-surface border border-border px-2 py-2 text-sm min-h-[44px]">
+                }} className="flex-1 bg-bg-surface border border-border rounded-xl px-2 py-2 text-sm min-h-[44px]">
                   <option value="">Ürün seçin</option>
                   {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
                 </select>

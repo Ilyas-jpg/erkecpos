@@ -111,7 +111,7 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
               <button
                 onClick={() => setSelectedPorsiyon(null)}
                 className={cn(
-                  "p-3 border text-center min-h-[56px] transition-all",
+                  "p-3 border rounded-xl text-center min-h-[56px] transition-all",
                   !selectedPorsiyon
                     ? "border-accent-green bg-accent-green/10 text-accent-green"
                     : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
@@ -124,7 +124,7 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
                   key={ext.id}
                   onClick={() => setSelectedPorsiyon(ext.id === selectedPorsiyon ? null : ext.id)}
                   className={cn(
-                    "p-3 border text-center min-h-[56px] transition-all",
+                    "p-3 border rounded-xl text-center min-h-[56px] transition-all",
                     selectedPorsiyon === ext.id
                       ? "border-accent-green bg-accent-green/10 text-accent-green"
                       : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
@@ -150,7 +150,7 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
                   key={ext.id}
                   onClick={() => toggleSet(selectedSoslar, ext.id, setSelectedSoslar)}
                   className={cn(
-                    "px-4 py-2.5 border text-sm min-h-[48px] transition-all",
+                    "px-4 py-2.5 border rounded-xl text-sm min-h-[48px] transition-all",
                     selectedSoslar.has(ext.id)
                       ? "border-accent-amber bg-accent-amber/10 text-accent-amber"
                       : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
@@ -174,7 +174,7 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
                   key={ext.id}
                   onClick={() => toggleSet(selectedMalzeme, ext.id, setSelectedMalzeme)}
                   className={cn(
-                    "px-4 py-2.5 border text-sm min-h-[48px] transition-all",
+                    "px-4 py-2.5 border rounded-xl text-sm min-h-[48px] transition-all",
                     selectedMalzeme.has(ext.id)
                       ? "border-accent-blue bg-accent-blue/10 text-accent-blue"
                       : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
