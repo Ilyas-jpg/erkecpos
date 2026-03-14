@@ -11,21 +11,21 @@ interface SearchInputProps {
 export function SearchInput({ value, onChange, placeholder = "Ara...", className }: SearchInputProps) {
   return (
     <div className={cn("relative", className)}>
-      <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted w-4 h-4" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-[15px] h-[15px]" strokeWidth={2} />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-bg-surface rounded-xl pl-10 pr-10 py-3 text-[15px]
-          text-text-primary placeholder:text-text-muted min-h-[44px] transition-all border border-transparent"
+        className="w-full bg-fill-tertiary rounded-[10px] pl-9 pr-9 py-2 text-[15px]
+          text-text-primary placeholder:text-text-muted min-h-[36px] transition-all border-0"
       />
       {value && (
         <button
           onClick={() => onChange("")}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary w-5 h-5 rounded-full bg-bg-hover flex items-center justify-center"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted w-[18px] h-[18px] rounded-full bg-fill-secondary flex items-center justify-center"
         >
-          <X className="w-3 h-3" />
+          <X className="w-2.5 h-2.5" strokeWidth={3} />
         </button>
       )}
     </div>

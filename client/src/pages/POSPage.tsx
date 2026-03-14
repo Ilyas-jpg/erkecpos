@@ -62,18 +62,18 @@ export function POSPage() {
   return (
     <div className="flex h-full">
       {/* Category Sidebar - desktop only */}
-      <aside className="hidden lg:flex flex-col w-[100px] bg-bg-card border-r border-border shrink-0">
-        <div className="flex-1 overflow-y-auto scroll-container py-2">
+      <aside className="hidden lg:flex flex-col w-[84px] bg-white/[0.02] border-r border-white/[0.04] shrink-0">
+        <div className="flex-1 overflow-y-auto scroll-container py-1.5 px-1.5">
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "w-full py-3 px-2 flex flex-col items-center gap-1 text-center transition-all rounded-xl",
+              "w-full py-2.5 px-1 flex flex-col items-center gap-1 text-center transition-all rounded-[10px] mb-0.5",
               !selectedCategory
-                ? "bg-accent-red/10 text-accent-red border-r-2 border-accent-red"
-                : "text-text-secondary hover:bg-bg-surface"
+                ? "bg-accent-blue/10 text-accent-blue/90"
+                : "text-text-muted hover:bg-fill-quaternary hover:text-text-secondary"
             )}
           >
-            <LayoutGrid className="w-5 h-5" />
+            <LayoutGrid className="w-[20px] h-[20px]" strokeWidth={1.8} />
             <span className="text-[10px] font-medium leading-tight">Tümü</span>
           </button>
           {categories.filter((c) => c.active === 1).map((cat) => (
@@ -81,13 +81,13 @@ export function POSPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "w-full py-3 px-2 flex flex-col items-center gap-1 text-center transition-all rounded-xl",
+                "w-full py-2.5 px-1 flex flex-col items-center gap-1 text-center transition-all rounded-[10px] mb-0.5",
                 selectedCategory === cat.id
-                  ? "bg-accent-red/10 text-accent-red border-r-2 border-accent-red"
-                  : "text-text-secondary hover:bg-bg-surface"
+                  ? "bg-accent-blue/10 text-accent-blue/90"
+                  : "text-text-muted hover:bg-fill-quaternary hover:text-text-secondary"
               )}
             >
-              <span className="text-xl">{cat.icon || "📋"}</span>
+              <span className="text-[18px]">{cat.icon || "📋"}</span>
               <span className="text-[10px] font-medium leading-tight">{cat.name}</span>
             </button>
           ))}
@@ -95,13 +95,15 @@ export function POSPage() {
       </aside>
 
       {/* Mobile category bar */}
-      <div className="lg:hidden fixed top-14 left-0 right-0 z-30 bg-bg-card border-b border-border overflow-x-auto">
-        <div className="flex items-center gap-1 px-2 py-2 min-w-max">
+      <div className="lg:hidden fixed top-[52px] left-0 right-0 z-30 vibrancy-bar border-b border-separator overflow-x-auto">
+        <div className="flex items-center gap-1.5 px-3 py-2 min-w-max">
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all rounded-xl",
-              !selectedCategory ? "bg-accent-red text-white" : "bg-bg-surface text-text-secondary"
+              "px-3.5 py-[6px] text-[13px] font-medium whitespace-nowrap transition-all rounded-full",
+              !selectedCategory
+                ? "bg-accent-blue/85 text-white shadow-[0_2px_8px_rgba(74,158,255,0.2)]"
+                : "bg-white/[0.05] text-white/50"
             )}
           >
             Tümü
@@ -111,8 +113,10 @@ export function POSPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "px-3 py-2 text-xs font-medium whitespace-nowrap min-h-[40px] transition-all rounded-xl",
-                selectedCategory === cat.id ? "bg-accent-red text-white" : "bg-bg-surface text-text-secondary"
+                "px-3.5 py-[6px] text-[13px] font-medium whitespace-nowrap transition-all rounded-full",
+                selectedCategory === cat.id
+                  ? "bg-accent-blue/85 text-white shadow-[0_2px_8px_rgba(74,158,255,0.2)]"
+                  : "bg-white/[0.05] text-white/50"
               )}
             >
               {cat.icon} {cat.name}
@@ -122,7 +126,7 @@ export function POSPage() {
       </div>
 
       {/* Product Grid */}
-      <div className="flex-1 flex flex-col min-h-0 lg:pt-0 pt-[56px] pb-[64px] lg:pb-0">
+      <div className="flex-1 flex flex-col min-h-0 lg:pt-0 pt-[52px] pb-[64px] lg:pb-0">
         <ProductGrid
           search={search}
           onSearchChange={setSearch}
@@ -140,8 +144,10 @@ export function POSPage() {
       {cartCount > 0 && !showOrder && (
         <button
           onClick={() => setShowOrder(true)}
-          className="lg:hidden fixed bottom-20 left-4 right-4 bg-accent-green text-white py-4
-            font-semibold text-center shadow-lg active:scale-[0.98] z-30 rounded-2xl"
+          className="lg:hidden fixed bottom-[68px] left-4 right-4 bg-accent-green text-white py-3.5
+            font-semibold text-[15px] text-center z-30 rounded-[12px]
+            shadow-[0_4px_16px_rgba(48,209,88,0.3),0_1px_3px_rgba(0,0,0,0.2)]
+            active:scale-[0.98] transition-transform"
         >
           Sepeti Gör ({cartCount} ürün)
         </button>
@@ -149,11 +155,11 @@ export function POSPage() {
 
       {/* Mobile order overlay */}
       {showOrder && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-bg-darkest flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-            <h2 className="font-semibold">Sipariş</h2>
-            <button onClick={() => setShowOrder(false)} className="text-2xl text-text-secondary w-10 h-10 flex items-center justify-center">
-              ×
+        <div className="lg:hidden fixed inset-0 z-50 bg-bg-primary flex flex-col">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-separator">
+            <h2 className="font-semibold text-[17px]">Sipariş</h2>
+            <button onClick={() => setShowOrder(false)} className="text-accent-blue font-medium text-[15px] min-h-[36px] px-2">
+              Kapat
             </button>
           </div>
           <div className="flex-1 overflow-hidden">

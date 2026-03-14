@@ -35,13 +35,13 @@ export function OrderPanel() {
 
   return (
     <>
-      <div className="w-full lg:w-[340px] bg-bg-card border-l border-border flex flex-col h-full">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
-          <h2 className="text-xs font-semibold tracking-widest uppercase text-text-secondary">Sipariş</h2>
+      <div className="w-full lg:w-[340px] bg-bg-elevated border-l border-separator flex flex-col h-full">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-separator shrink-0">
+          <h2 className="text-[15px] font-semibold text-text-secondary tracking-[-0.2px]">Sipariş</h2>
           {cart.length > 0 && (
             <button
               onClick={clearCart}
-              className="text-[10px] text-accent-red hover:text-red-400 tracking-widest uppercase font-semibold min-h-[36px] px-2 transition-colors"
+              className="text-[13px] text-accent-red font-medium min-h-[28px] px-2 transition-colors hover:opacity-70"
             >
               Temizle
             </button>
@@ -67,24 +67,24 @@ export function OrderPanel() {
         </div>
 
         {cart.length > 0 && (
-          <div className="border-t border-border p-4 space-y-1.5 shrink-0 bg-bg-surface/30">
-            <div className="flex justify-between text-xs">
-              <span className="text-text-muted uppercase tracking-wider">Ara Toplam</span>
-              <span className="font-mono text-text-secondary">{formatPrice(calculations.subtotal)}</span>
+          <div className="border-t border-separator p-4 space-y-1 shrink-0">
+            <div className="flex justify-between text-[13px]">
+              <span className="text-text-muted">Ara Toplam</span>
+              <span className="font-mono tabular-nums text-text-secondary">{formatPrice(calculations.subtotal)}</span>
             </div>
             {calculations.serviceCharge > 0 && (
-              <div className="flex justify-between text-xs">
-                <span className="text-text-muted uppercase tracking-wider">Servis %{serviceConfig.value}</span>
-                <span className="font-mono text-text-secondary">{formatPrice(calculations.serviceCharge)}</span>
+              <div className="flex justify-between text-[13px]">
+                <span className="text-text-muted">Servis %{serviceConfig.value}</span>
+                <span className="font-mono tabular-nums text-text-secondary">{formatPrice(calculations.serviceCharge)}</span>
               </div>
             )}
-            <div className="flex justify-between text-xs">
-              <span className="text-text-muted uppercase tracking-wider">KDV %{taxConfig.rate}</span>
-              <span className="font-mono text-text-secondary">{formatPrice(calculations.tax)}</span>
+            <div className="flex justify-between text-[13px]">
+              <span className="text-text-muted">KDV %{taxConfig.rate}</span>
+              <span className="font-mono tabular-nums text-text-secondary">{formatPrice(calculations.tax)}</span>
             </div>
-            <div className="flex justify-between text-lg font-bold pt-3 mt-2 border-t border-border">
-              <span className="tracking-wider">TOPLAM</span>
-              <span className="font-mono text-accent-green">{formatPrice(calculations.total)}</span>
+            <div className="flex justify-between text-[20px] font-bold pt-3 mt-2 border-t border-separator">
+              <span>Toplam</span>
+              <span className="font-mono tabular-nums text-accent-green">{formatPrice(calculations.total)}</span>
             </div>
 
             <Button

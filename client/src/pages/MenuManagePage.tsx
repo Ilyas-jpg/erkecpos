@@ -120,61 +120,61 @@ export function MenuManagePage() {
     <div className="flex flex-col h-full">
       <TopBar title="Menü Yönetimi" />
 
-      <div className="p-4 flex flex-wrap items-center gap-3 shrink-0 border-b border-border">
+      <div className="p-4 flex flex-wrap items-center gap-2.5 shrink-0 border-b border-separator">
         <SearchInput value={search} onChange={setSearch} placeholder="Ürün ara..." className="flex-1 min-w-[200px]" />
         <select
           value={filterCat || ""}
           onChange={(e) => setFilterCat(e.target.value || null)}
-          className="bg-bg-surface border border-border rounded-xl px-3 py-2.5 text-sm min-h-[48px]"
+          className="bg-fill-tertiary border-0 rounded-[10px] px-3 py-2.5 text-[13px] min-h-[36px]"
         >
           <option value="">Tüm Kategoriler</option>
           {categories.map((c) => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
         </select>
         <Toggle checked={showInactive} onChange={setShowInactive} label="Pasifler" />
-        <Button variant="secondary" onClick={() => setCatModalOpen(true)}>Kategoriler</Button>
-        <Button variant="secondary" onClick={() => setBulkOpen(true)}>Toplu Fiyat</Button>
-        <Button onClick={() => { setEditProduct(null); setFormOpen(true); }}>+ Yeni Ürün</Button>
+        <Button variant="secondary" size="sm" onClick={() => setCatModalOpen(true)}>Kategoriler</Button>
+        <Button variant="secondary" size="sm" onClick={() => setBulkOpen(true)}>Toplu Fiyat</Button>
+        <Button size="sm" onClick={() => { setEditProduct(null); setFormOpen(true); }}>+ Yeni Ürün</Button>
       </div>
 
       <div className="flex-1 overflow-y-auto scroll-container p-4">
-        <div className="grid gap-2">
+        <div className="grid gap-1.5">
           {filtered.map((product) => {
             const cat = categories.find((c) => c.id === product.categoryId);
             return (
               <div
                 key={product.id}
                 className={cn(
-                  "flex items-center gap-4 bg-bg-card rounded-2xl border border-white/[0.06] p-4 shadow-sm",
-                  product.active === 0 && "opacity-50"
+                  "flex items-center gap-4 bg-bg-elevated rounded-[12px] p-3.5 shadow-[0_1px_2px_rgba(0,0,0,0.15),0_0_0_0.5px_rgba(255,255,255,0.04)_inset]",
+                  product.active === 0 && "opacity-40"
                 )}
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-sm">{product.name}</h3>
+                    <h3 className="font-medium text-[14px] tracking-[-0.1px]">{product.name}</h3>
                     {cat && (
-                      <span className="text-[10px] px-1.5 py-0.5 bg-bg-surface text-text-muted">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-fill-quaternary rounded-[4px] text-text-muted">
                         {cat.icon} {cat.name}
                       </span>
                     )}
                     {product.active === 0 && (
-                      <span className="text-[10px] px-1.5 py-0.5 bg-accent-red/20 text-accent-red">Pasif</span>
+                      <span className="text-[10px] px-1.5 py-0.5 bg-accent-red/12 text-accent-red rounded-[4px]">Pasif</span>
                     )}
                   </div>
-                  {product.description && <p className="text-xs text-text-muted mt-0.5">{product.description}</p>}
+                  {product.description && <p className="text-[12px] text-text-muted mt-0.5">{product.description}</p>}
                 </div>
-                <span className="font-mono text-lg font-bold text-accent-green">{formatPrice(product.price)}</span>
+                <span className="font-mono text-[16px] font-bold text-accent-green tabular-nums">{formatPrice(product.price)}</span>
                 <div className="flex gap-1">
                   <button
                     onClick={() => { setEditProduct(product); setFormOpen(true); }}
-                    className="w-10 h-10 flex items-center justify-center bg-bg-surface rounded-lg hover:bg-bg-hover text-text-secondary"
+                    className="w-[34px] h-[34px] flex items-center justify-center bg-fill-quaternary rounded-[8px] text-text-muted hover:bg-fill-tertiary transition-colors"
                   >
-                    <Pencil className="w-4 h-4" />
+                    <Pencil className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setDeleteId(product.id)}
-                    className="w-10 h-10 flex items-center justify-center bg-bg-surface rounded-lg hover:bg-accent-red/20 text-text-secondary"
+                    className="w-[34px] h-[34px] flex items-center justify-center bg-fill-quaternary rounded-[8px] text-text-muted hover:bg-accent-red/15 hover:text-accent-red transition-colors"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>

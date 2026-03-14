@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 
 interface ModalProps {
   open: boolean;
@@ -10,9 +11,9 @@ interface ModalProps {
 }
 
 const sizeClasses = {
-  sm: "max-w-sm",
-  md: "max-w-lg",
-  lg: "max-w-2xl",
+  sm: "max-w-[360px]",
+  md: "max-w-[480px]",
+  lg: "max-w-[600px]",
   full: "max-w-[95vw] max-h-[95vh]",
 };
 
@@ -33,22 +34,24 @@ export function Modal({ open, onClose, title, children, size = "md" }: ModalProp
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
         >
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-xl" onClick={onClose} />
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-md" onClick={onClose} />
           <motion.div
-            className={`relative w-full ${sizeClasses[size]} bg-bg-card rounded-2xl shadow-2xl shadow-black/30 overflow-hidden border border-white/[0.08]`}
-            initial={{ scale: 0.95, opacity: 0, y: 10 }}
+            className={`relative w-full ${sizeClasses[size]} rounded-[16px] overflow-hidden
+              bg-gradient-to-b from-[#1e1e22] to-[#18181c]
+              shadow-[0_24px_80px_rgba(0,0,0,0.4),0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_1px_0_rgba(255,255,255,0.04)_inset]`}
+            initial={{ scale: 0.96, opacity: 0, y: 12 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 10 }}
-            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+            exit={{ scale: 0.96, opacity: 0, y: 12 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           >
             {title && (
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.06]">
-                <h2 className="text-[17px] font-semibold">{title}</h2>
+              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.05]">
+                <h2 className="text-[17px] font-semibold text-white/90 tracking-[-0.3px]">{title}</h2>
                 <button
                   onClick={onClose}
-                  className="w-8 h-8 rounded-full flex items-center justify-center bg-bg-surface hover:bg-bg-hover text-text-muted hover:text-text-primary transition-colors text-sm"
+                  className="w-[28px] h-[28px] rounded-full flex items-center justify-center bg-white/[0.08] text-white/40 hover:text-white/70 hover:bg-white/[0.12] transition-all duration-200"
                 >
-                  ✕
+                  <X className="w-3.5 h-3.5" strokeWidth={2.5} />
                 </button>
               </div>
             )}

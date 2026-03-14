@@ -1,35 +1,75 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg-darkest: #000000;
-  --color-bg-card: #1c1c1e;
-  --color-bg-surface: #2c2c2e;
-  --color-bg-hover: #3a3a3c;
-  --color-accent-red: #ff453a;
-  --color-accent-green: #30d158;
-  --color-accent-amber: #ffd60a;
-  --color-accent-blue: #0a84ff;
-  --color-accent-purple: #bf5af2;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #98989d;
-  --color-text-muted: #48484a;
-  --color-border: #38383a;
-  --color-border-strong: #48484a;
+  /* Soft dark palette - warm, gentle tones */
+  --color-bg-primary: #0d0d0f;
+  --color-bg-secondary: #161618;
+  --color-bg-tertiary: #1e1e22;
+  --color-bg-elevated: #1a1a1e;
 
+  /* Backward compat */
+  --color-bg-darkest: #0d0d0f;
+  --color-bg-card: #1a1a1e;
+  --color-bg-surface: #222226;
+  --color-bg-hover: #2a2a2f;
+
+  /* Soft accent colors - muted, not harsh */
+  --color-accent-red: #e8534b;
+  --color-accent-green: #3cc06a;
+  --color-accent-amber: #e8b73d;
+  --color-accent-blue: #4a9eff;
+  --color-accent-purple: #a378f0;
+  --color-accent-orange: #e89040;
+  --color-accent-teal: #5ec4d4;
+  --color-accent-indigo: #7b7bf0;
+
+  /* Soft text colors */
+  --color-text-primary: rgba(255, 255, 255, 0.92);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-text-muted: rgba(255, 255, 255, 0.28);
+  --color-label-tertiary: rgba(255, 255, 255, 0.18);
+
+  /* Soft separators */
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-strong: rgba(255, 255, 255, 0.1);
+  --color-separator: rgba(255, 255, 255, 0.06);
+
+  /* Soft fills */
+  --color-fill-primary: rgba(255, 255, 255, 0.12);
+  --color-fill-secondary: rgba(255, 255, 255, 0.08);
+  --color-fill-tertiary: rgba(255, 255, 255, 0.05);
+  --color-fill-quaternary: rgba(255, 255, 255, 0.03);
+
+  /* Fonts */
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
   --font-mono: "SF Mono", "Menlo", "Monaco", ui-monospace, monospace;
 }
 
 .light {
-  --color-bg-darkest: #f2f2f7;
+  --color-bg-primary: #f5f5f7;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f0f0f2;
+  --color-bg-elevated: #ffffff;
+  --color-bg-darkest: #f5f5f7;
   --color-bg-card: #ffffff;
-  --color-bg-surface: #e5e5ea;
-  --color-bg-hover: #d1d1d6;
-  --color-text-primary: #000000;
-  --color-text-secondary: #3c3c43;
-  --color-text-muted: #aeaeb2;
-  --color-border: #c6c6c8;
-  --color-border-strong: #aeaeb2;
+  --color-bg-surface: #ececee;
+  --color-bg-hover: #e0e0e3;
+  --color-text-primary: rgba(0, 0, 0, 0.88);
+  --color-text-secondary: rgba(0, 0, 0, 0.55);
+  --color-text-muted: rgba(0, 0, 0, 0.22);
+  --color-label-tertiary: rgba(0, 0, 0, 0.12);
+  --color-border: rgba(0, 0, 0, 0.06);
+  --color-border-strong: rgba(0, 0, 0, 0.1);
+  --color-separator: rgba(0, 0, 0, 0.06);
+  --color-fill-primary: rgba(0, 0, 0, 0.08);
+  --color-fill-secondary: rgba(0, 0, 0, 0.05);
+  --color-fill-tertiary: rgba(0, 0, 0, 0.03);
+  --color-fill-quaternary: rgba(0, 0, 0, 0.02);
+  --color-accent-red: #e0423a;
+  --color-accent-green: #2eaa57;
+  --color-accent-blue: #2e7cf6;
+  --color-accent-amber: #d4981c;
+  --color-accent-purple: #8b5cf6;
 }
 
 * {
@@ -44,7 +84,7 @@ html, body, #root {
   width: 100%;
   overflow: hidden;
   font-family: var(--font-sans);
-  background: var(--color-bg-darkest);
+  background: var(--color-bg-primary);
   color: var(--color-text-primary);
   user-select: none;
   -webkit-user-select: none;
@@ -54,19 +94,20 @@ html, body, #root {
   letter-spacing: -0.01em;
 }
 
+/* Ultra-thin scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 3px;
+  height: 3px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 button, [role="button"] {
@@ -82,17 +123,19 @@ button, [role="button"] {
 
 .font-mono {
   font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1;
 }
 
+/* Gentle focus ring */
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--color-accent-blue) !important;
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.25);
+  border-color: rgba(74, 158, 255, 0.4) !important;
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
 }
 
 select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2398989d' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 32px !important;
@@ -101,4 +144,36 @@ select {
 
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Glassmorphism materials - soft, blurry */
+.material-thin {
+  background: rgba(26, 26, 30, 0.6);
+  backdrop-filter: saturate(150%) blur(24px);
+  -webkit-backdrop-filter: saturate(150%) blur(24px);
+}
+
+.vibrancy-sidebar {
+  background: rgba(22, 22, 24, 0.55);
+  backdrop-filter: saturate(180%) blur(30px);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+}
+
+.vibrancy-bar {
+  background: rgba(16, 16, 18, 0.65);
+  backdrop-filter: saturate(180%) blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
+}
+
+/* Soft card glow effect */
+.card-glow {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.15),
+    0 0 0 0.5px rgba(255, 255, 255, 0.03) inset,
+    0 1px 0 rgba(255, 255, 255, 0.02) inset;
+}
+
+/* Smooth transitions globally */
+* {
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
 }

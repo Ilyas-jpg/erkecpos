@@ -5,10 +5,10 @@ export function TopBar({ title }: { title?: string }) {
   const businessName = settings?.business_info?.name || "Dinlenme Tesisi";
 
   return (
-    <header className="h-12 bg-bg-card/50 backdrop-blur-xl border-b border-white/[0.06] flex items-center justify-between px-5 shrink-0">
-      <h1 className="text-[17px] font-semibold">{title || businessName}</h1>
-      <span className="text-[13px] text-text-secondary font-mono">
-        {new Date().toLocaleDateString("tr-TR")}
+    <header className="h-[52px] vibrancy-bar border-b border-separator flex items-center justify-between px-5 shrink-0">
+      <h1 className="text-[17px] font-semibold tracking-[-0.4px]">{title || businessName}</h1>
+      <span className="text-[13px] text-text-muted font-mono tabular-nums">
+        {new Date().toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit", year: "numeric" })}
       </span>
     </header>
   );
