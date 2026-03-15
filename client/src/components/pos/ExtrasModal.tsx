@@ -96,42 +96,42 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
     <Modal open={open} onClose={onClose} title={product.name} size="md">
       <div className="p-5">
         {/* Product info */}
-        <div className="flex justify-between items-center mb-5 pb-4 border-b border-border">
-          <div>
-            <p className="text-text-secondary text-sm">{product.description}</p>
+        <div className="flex justify-between items-center mb-5 pb-4 border-b border-separator">
+          <div className="min-w-0 pr-4">
+            <p className="text-text-secondary text-[15px] leading-relaxed truncate">{product.description}</p>
           </div>
-          <span className="font-mono text-xl font-bold text-accent-green">{formatPrice(product.price)}</span>
+          <span className="font-mono text-[20px] font-bold text-accent-green shrink-0">{formatPrice(product.price)}</span>
         </div>
 
         {/* Porsiyon */}
         {porsiyonExtras.length > 0 && (
           <div className="mb-5">
-            <h3 className="text-sm font-semibold text-text-secondary mb-3 uppercase tracking-wider">Porsiyon</h3>
+            <h3 className="text-[13px] font-semibold text-text-secondary mb-3 uppercase tracking-[0.06em]">Porsiyon</h3>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setSelectedPorsiyon(null)}
                 className={cn(
-                  "p-3 border rounded-xl text-center min-h-[56px] transition-all",
+                  "p-3.5 border rounded-[12px] text-center min-h-[52px] transition-all flex flex-col items-center justify-center",
                   !selectedPorsiyon
                     ? "border-accent-green bg-accent-green/10 text-accent-green"
-                    : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
+                    : "border-border bg-bg-tertiary text-text-primary hover:bg-bg-hover"
                 )}
               >
-                <div className="font-medium text-sm">Normal</div>
+                <div className="font-medium text-[15px]">Normal</div>
               </button>
               {porsiyonExtras.map((ext) => (
                 <button
                   key={ext.id}
                   onClick={() => setSelectedPorsiyon(ext.id === selectedPorsiyon ? null : ext.id)}
                   className={cn(
-                    "p-3 border rounded-xl text-center min-h-[56px] transition-all",
+                    "p-3.5 border rounded-[12px] text-center min-h-[52px] transition-all flex flex-col items-center justify-center",
                     selectedPorsiyon === ext.id
                       ? "border-accent-green bg-accent-green/10 text-accent-green"
-                      : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
+                      : "border-border bg-bg-tertiary text-text-primary hover:bg-bg-hover"
                   )}
                 >
-                  <div className="font-medium text-sm">{ext.name}</div>
-                  <div className="font-mono text-xs mt-0.5">
+                  <div className="font-medium text-[15px]">{ext.name}</div>
+                  <div className="font-mono text-[13px] mt-0.5 text-text-secondary">
                     {ext.price > 0 ? `+${formatPrice(ext.price)}` : formatPrice(ext.price)}
                   </div>
                 </button>
@@ -143,21 +143,21 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
         {/* Soslar */}
         {sosExtras.length > 0 && (
           <div className="mb-5">
-            <h3 className="text-sm font-semibold text-text-secondary mb-3 uppercase tracking-wider">Sos</h3>
+            <h3 className="text-[13px] font-semibold text-text-secondary mb-3 uppercase tracking-[0.06em]">Sos</h3>
             <div className="flex flex-wrap gap-2">
               {sosExtras.map((ext) => (
                 <button
                   key={ext.id}
                   onClick={() => toggleSet(selectedSoslar, ext.id, setSelectedSoslar)}
                   className={cn(
-                    "px-4 py-2.5 border rounded-xl text-sm min-h-[48px] transition-all",
+                    "px-4 py-3 border rounded-[12px] text-[15px] min-h-[48px] transition-all",
                     selectedSoslar.has(ext.id)
-                      ? "border-accent-amber bg-accent-amber/10 text-accent-amber"
-                      : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
+                      ? "border-accent-amber bg-accent-amber/10 text-accent-amber font-medium"
+                      : "border-border bg-bg-tertiary text-text-primary hover:bg-bg-hover"
                   )}
                 >
                   {ext.name}
-                  {ext.price > 0 && <span className="font-mono text-xs ml-1">+{formatPrice(ext.price)}</span>}
+                  {ext.price > 0 && <span className="font-mono text-[13px] ml-1.5">+{formatPrice(ext.price)}</span>}
                 </button>
               ))}
             </div>
@@ -167,21 +167,21 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
         {/* Malzeme */}
         {malzemeExtras.length > 0 && (
           <div className="mb-5">
-            <h3 className="text-sm font-semibold text-text-secondary mb-3 uppercase tracking-wider">Ek Malzeme</h3>
+            <h3 className="text-[13px] font-semibold text-text-secondary mb-3 uppercase tracking-[0.06em]">Ek Malzeme</h3>
             <div className="flex flex-wrap gap-2">
               {malzemeExtras.map((ext) => (
                 <button
                   key={ext.id}
                   onClick={() => toggleSet(selectedMalzeme, ext.id, setSelectedMalzeme)}
                   className={cn(
-                    "px-4 py-2.5 border rounded-xl text-sm min-h-[48px] transition-all",
+                    "px-4 py-3 border rounded-[12px] text-[15px] min-h-[48px] transition-all",
                     selectedMalzeme.has(ext.id)
-                      ? "border-accent-blue bg-accent-blue/10 text-accent-blue"
-                      : "border-border bg-bg-surface text-text-primary hover:bg-bg-hover"
+                      ? "border-accent-blue bg-accent-blue/10 text-accent-blue font-medium"
+                      : "border-border bg-bg-tertiary text-text-primary hover:bg-bg-hover"
                   )}
                 >
                   {ext.name}
-                  {ext.price > 0 && <span className="font-mono text-xs ml-1">+{formatPrice(ext.price)}</span>}
+                  {ext.price > 0 && <span className="font-mono text-[13px] ml-1.5">+{formatPrice(ext.price)}</span>}
                 </button>
               ))}
             </div>
@@ -189,10 +189,10 @@ export function ExtrasModal({ open, onClose, product }: ExtrasModalProps) {
         )}
 
         {/* Total & Add */}
-        <div className="border-t border-border pt-4 mt-4">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-text-secondary">Toplam</span>
-            <span className="font-mono text-2xl font-bold text-accent-green">{formatPrice(totalPrice)}</span>
+        <div className="border-t border-separator pt-4 mt-2">
+          <div className="flex justify-between items-baseline mb-4">
+            <span className="text-text-secondary text-[15px]">Toplam</span>
+            <span className="font-mono text-[24px] font-bold text-accent-green tabular-nums">{formatPrice(totalPrice)}</span>
           </div>
           <Button size="xl" variant="success" className="w-full" onClick={handleAdd}>
             Sepete Ekle

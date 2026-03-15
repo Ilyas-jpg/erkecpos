@@ -11,21 +11,22 @@ interface SearchInputProps {
 export function SearchInput({ value, onChange, placeholder = "Ara...", className }: SearchInputProps) {
   return (
     <div className={cn("relative", className)}>
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-[15px] h-[15px]" strokeWidth={2} />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-[16px] h-[16px]" strokeWidth={2} />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-fill-tertiary rounded-[10px] pl-9 pr-9 py-2 text-[15px]
-          text-text-primary placeholder:text-text-muted min-h-[36px] transition-all border-0"
+        className="w-full bg-fill-tertiary rounded-[10px] pl-10 pr-10 py-2 text-[17px]
+          text-text-primary placeholder:text-text-muted h-[36px] transition-all border-0
+          focus:bg-fill-secondary"
       />
       {value && (
         <button
           onClick={() => onChange("")}
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted w-[18px] h-[18px] rounded-full bg-fill-secondary flex items-center justify-center"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-[18px] h-[18px] rounded-full bg-fill-secondary flex items-center justify-center text-text-muted"
         >
-          <X className="w-2.5 h-2.5" strokeWidth={3} />
+          <X className="w-[10px] h-[10px]" strokeWidth={3} />
         </button>
       )}
     </div>

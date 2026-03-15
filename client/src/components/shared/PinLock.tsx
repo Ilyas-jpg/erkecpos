@@ -48,55 +48,59 @@ export function PinLock({ children }: { children: React.ReactNode }) {
   const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "C", "0", "DEL"];
 
   return (
-    <div className="h-full flex items-center justify-center bg-bg-darkest">
+    <div className="h-full flex items-center justify-center bg-bg-primary">
       <motion.div
         animate={shake ? { x: [-12, 12, -12, 12, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-[280px]"
+        className="w-full max-w-[300px] px-4"
       >
+        {/* Header */}
         <div className="text-center mb-10">
-          <div className="w-20 h-20 rounded-full bg-bg-card flex items-center justify-center mx-auto mb-5 shadow-lg">
+          <div className="w-[72px] h-[72px] rounded-full bg-bg-secondary flex items-center justify-center mx-auto mb-5">
             <Lock className="w-8 h-8 text-text-secondary" />
           </div>
-          <h1 className="text-[22px] font-semibold mb-1">Yönetim Paneli</h1>
-          <p className="text-[13px] text-text-secondary">PIN kodunuzu girin</p>
+          <h1 className="text-[22px] font-bold tracking-[-0.4px] mb-1">Yönetim Paneli</h1>
+          <p className="text-[15px] text-text-secondary">PIN kodunuzu girin</p>
         </div>
 
+        {/* PIN dots */}
         <div className="flex items-center justify-center gap-4 mb-10">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <motion.div
               key={i}
               animate={pin.length > i ? { scale: [1, 1.4, 1] } : {}}
               transition={{ duration: 0.15 }}
-              className={`w-3.5 h-3.5 rounded-full transition-all duration-200 ${
+              className={`w-[14px] h-[14px] rounded-full transition-all duration-200 ${
                 pin.length > i
-                  ? "bg-accent-green shadow-[0_0_8px_rgba(48,209,88,0.4)]"
-                  : "bg-bg-surface"
+                  ? "bg-accent-green shadow-[0_0_10px_rgba(48,209,88,0.4)]"
+                  : "bg-fill-tertiary"
               }`}
             />
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        {/* Numpad */}
+        <div className="grid grid-cols-3 gap-3 mb-5">
           {keys.map((key) => (
             <button
               key={key}
               onClick={() => handleKey(key)}
-              className={`h-16 rounded-2xl text-xl font-medium transition-all active:scale-95
-                ${key === "C" ? "bg-accent-red/15 text-accent-red" :
-                  key === "DEL" ? "bg-bg-surface text-text-secondary flex items-center justify-center" :
-                  "bg-bg-card text-text-primary hover:bg-bg-surface shadow-sm"}`}
+              className={`h-[60px] rounded-[14px] text-[20px] font-semibold transition-all active:scale-95 flex items-center justify-center
+                ${key === "C" ? "bg-accent-red/12 text-accent-red" :
+                  key === "DEL" ? "bg-fill-tertiary text-text-secondary" :
+                  "bg-bg-secondary text-text-primary hover:bg-bg-tertiary"}`}
             >
-              {key === "DEL" ? <Delete className="w-5 h-5" /> : key}
+              {key === "DEL" ? <Delete className="w-[22px] h-[22px]" /> : key}
             </button>
           ))}
         </div>
 
+        {/* Submit */}
         <button
           onClick={handleSubmit}
           disabled={pin.length < 4}
-          className="w-full h-14 bg-accent-blue text-white rounded-2xl font-semibold text-[17px]
-            disabled:opacity-30 disabled:pointer-events-none active:scale-[0.97] transition-all shadow-sm"
+          className="w-full h-[50px] bg-accent-blue text-white rounded-[14px] font-semibold text-[17px]
+            disabled:opacity-30 disabled:pointer-events-none active:scale-[0.97] transition-all"
         >
           Giriş Yap
         </button>

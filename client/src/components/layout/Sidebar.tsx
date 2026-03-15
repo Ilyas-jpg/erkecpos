@@ -20,14 +20,16 @@ export function Sidebar() {
   const logoutAdmin = useStore((s) => s.logoutAdmin);
 
   return (
-    <aside className="hidden lg:flex flex-col w-[72px] vibrancy-sidebar border-r border-white/[0.04] h-full">
-      <div className="flex items-center justify-center h-[52px]">
-        <div className="w-8 h-8 rounded-[8px] bg-accent-blue flex items-center justify-center shadow-[0_2px_8px_rgba(10,132,255,0.3)]">
-          <Store className="w-4 h-4 text-white" />
+    <aside className="hidden lg:flex flex-col w-[76px] vibrancy-sidebar border-r border-separator h-full">
+      {/* Logo */}
+      <div className="flex items-center justify-center h-[56px] shrink-0">
+        <div className="w-[34px] h-[34px] rounded-[10px] bg-accent-blue flex items-center justify-center shadow-[0_2px_10px_rgba(10,132,255,0.35)]">
+          <Store className="w-[17px] h-[17px] text-white" />
         </div>
       </div>
 
-      <nav className="flex-1 flex flex-col items-center gap-0.5 py-2 scroll-container px-1.5">
+      {/* Navigation */}
+      <nav className="flex-1 flex flex-col items-center gap-1 py-2 scroll-container px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -36,39 +38,40 @@ export function Sidebar() {
               to={item.path}
               className={({ isActive }) =>
                 cn(
-                  "w-full py-2 flex flex-col items-center justify-center rounded-[10px] transition-all text-center gap-0.5 relative",
+                  "w-full min-h-[48px] py-1.5 flex flex-col items-center justify-center rounded-[12px] transition-all text-center gap-[3px] relative",
                   isActive
-                    ? "bg-accent-blue/10 text-accent-blue/90"
-                    : "text-white/30 hover:bg-white/[0.04] hover:text-white/50"
+                    ? "bg-accent-blue/12 text-accent-blue"
+                    : "text-text-muted hover:bg-fill-quaternary hover:text-text-secondary"
                 )
               }
             >
-              <Icon className="w-[20px] h-[20px]" strokeWidth={1.8} />
-              <span className="text-[10px] font-medium leading-tight">{item.label}</span>
+              <Icon className="w-[21px] h-[21px]" strokeWidth={1.7} />
+              <span className="text-[10px] font-medium leading-none tracking-[-0.01em]">{item.label}</span>
               {item.adminOnly && !isAdmin && (
-                <span className="absolute top-1 right-1.5 w-[6px] h-[6px] rounded-full bg-accent-orange" />
+                <span className="absolute top-1.5 right-2 w-[6px] h-[6px] rounded-full bg-accent-orange" />
               )}
             </NavLink>
           );
         })}
       </nav>
 
-      <div className="flex flex-col items-center gap-0.5 py-2 border-t border-separator px-1.5">
+      {/* Bottom actions */}
+      <div className="flex flex-col items-center gap-1 py-3 border-t border-separator px-2 shrink-0">
         {isAdmin && (
           <button
             onClick={logoutAdmin}
-            className="w-full py-2 flex flex-col items-center justify-center rounded-[10px] text-text-muted hover:text-accent-red hover:bg-accent-red/8 transition-all"
+            className="w-full min-h-[44px] py-1.5 flex flex-col items-center justify-center rounded-[12px] text-text-muted hover:text-accent-red hover:bg-accent-red/10 transition-all gap-[3px]"
             title="Çıkış"
           >
-            <LogOut className="w-[20px] h-[20px]" strokeWidth={1.8} />
-            <span className="text-[9px] mt-0.5">Çıkış</span>
+            <LogOut className="w-[20px] h-[20px]" strokeWidth={1.7} />
+            <span className="text-[10px] font-medium leading-none">Çıkış</span>
           </button>
         )}
         <button
           onClick={toggleTheme}
-          className="w-full py-2 flex items-center justify-center rounded-[10px] text-text-muted hover:bg-fill-quaternary transition-all"
+          className="w-full min-h-[44px] flex items-center justify-center rounded-[12px] text-text-muted hover:bg-fill-quaternary hover:text-text-secondary transition-all"
         >
-          {theme === "dark" ? <Sun className="w-[20px] h-[20px]" strokeWidth={1.8} /> : <Moon className="w-[20px] h-[20px]" strokeWidth={1.8} />}
+          {theme === "dark" ? <Sun className="w-[20px] h-[20px]" strokeWidth={1.7} /> : <Moon className="w-[20px] h-[20px]" strokeWidth={1.7} />}
         </button>
       </div>
     </aside>

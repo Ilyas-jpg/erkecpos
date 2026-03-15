@@ -68,56 +68,56 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
         status: "completed",
       });
 
-      addToast("Siparis tamamlandi!", "success");
+      addToast("Sipariş tamamlandı!", "success");
       clearCart();
       setCashAmount("");
       setNote("");
       onClose();
     } catch (err: any) {
-      addToast(err.message || "Siparis olusturulamadi", "error");
+      addToast(err.message || "Sipariş oluşturulamadı", "error");
     } finally {
       setLoading(false);
     }
   };
 
   const methods: { key: PaymentMethod; label: string; icon: React.ReactNode }[] = [
-    { key: "cash", label: "Nakit", icon: <Banknote className="w-5 h-5" /> },
-    { key: "card", label: "Kart", icon: <CreditCard className="w-5 h-5" /> },
-    { key: "pos", label: "POS", icon: <Printer className="w-5 h-5" /> },
-    { key: "mixed", label: "Karışık", icon: <ArrowLeftRight className="w-5 h-5" /> },
+    { key: "cash", label: "Nakit", icon: <Banknote className="w-[20px] h-[20px]" /> },
+    { key: "card", label: "Kart", icon: <CreditCard className="w-[20px] h-[20px]" /> },
+    { key: "pos", label: "POS", icon: <Printer className="w-[20px] h-[20px]" /> },
+    { key: "mixed", label: "Karışık", icon: <ArrowLeftRight className="w-[20px] h-[20px]" /> },
   ];
 
   return (
     <Modal open={open} onClose={onClose} title="Ödeme" size="lg">
       <div className="p-5">
         {/* Summary */}
-        <div className="bg-bg-surface rounded-2xl p-4 mb-5">
-          <div className="space-y-1.5 text-sm">
-            <div className="flex justify-between">
+        <div className="bg-bg-tertiary rounded-[14px] p-4 mb-5">
+          <div className="space-y-2">
+            <div className="flex justify-between text-[15px]">
               <span className="text-text-secondary">Ara Toplam</span>
-              <span className="font-mono">{formatPrice(subtotal)}</span>
+              <span className="font-mono tabular-nums">{formatPrice(subtotal)}</span>
             </div>
             {discount > 0 && (
-              <div className="flex justify-between text-accent-amber">
+              <div className="flex justify-between text-[15px] text-accent-amber">
                 <span>İndirim</span>
-                <span className="font-mono">-{formatPrice(discount)}</span>
+                <span className="font-mono tabular-nums">-{formatPrice(discount)}</span>
               </div>
             )}
             {serviceCharge > 0 && (
-              <div className="flex justify-between">
+              <div className="flex justify-between text-[15px]">
                 <span className="text-text-secondary">Servis</span>
-                <span className="font-mono">{formatPrice(serviceCharge)}</span>
+                <span className="font-mono tabular-nums">{formatPrice(serviceCharge)}</span>
               </div>
             )}
             {tax > 0 && (
-              <div className="flex justify-between">
+              <div className="flex justify-between text-[15px]">
                 <span className="text-text-secondary">KDV</span>
-                <span className="font-mono">{formatPrice(tax)}</span>
+                <span className="font-mono tabular-nums">{formatPrice(tax)}</span>
               </div>
             )}
-            <div className="flex justify-between pt-2 border-t border-border text-lg font-bold">
-              <span>TOPLAM</span>
-              <span className="font-mono text-accent-green">{formatPrice(total)}</span>
+            <div className="flex justify-between items-baseline pt-3 border-t border-separator">
+              <span className="text-[17px] font-semibold">TOPLAM</span>
+              <span className="font-mono text-[22px] font-bold text-accent-green tabular-nums">{formatPrice(total)}</span>
             </div>
           </div>
         </div>
@@ -129,14 +129,14 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
               key={m.key}
               onClick={() => setMethod(m.key)}
               className={cn(
-                "flex flex-col items-center gap-1.5 p-3 border rounded-xl min-h-[64px] transition-all",
+                "flex flex-col items-center justify-center gap-1.5 p-3 border rounded-[12px] min-h-[68px] transition-all",
                 method === m.key
                   ? "border-accent-green bg-accent-green/10 text-accent-green"
-                  : "border-border bg-bg-surface text-text-secondary hover:bg-bg-hover"
+                  : "border-border bg-bg-tertiary text-text-secondary hover:bg-bg-hover"
               )}
             >
               {m.icon}
-              <span className="text-xs font-medium">{m.label}</span>
+              <span className="text-[13px] font-medium leading-none">{m.label}</span>
             </button>
           ))}
         </div>
@@ -144,47 +144,49 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
         {/* Cash numpad */}
         {method === "cash" && (
           <div className="mb-5">
-            <div className="bg-bg-surface rounded-2xl p-4 mb-3">
+            <div className="bg-bg-tertiary rounded-[14px] p-4 mb-3">
               <div className="flex justify-between items-center">
-                <span className="text-text-secondary text-sm">Alınan</span>
-                <span className="font-mono text-2xl font-bold">{cashAmount || "0"} ₺</span>
+                <span className="text-text-secondary text-[15px]">Alınan</span>
+                <span className="font-mono text-[24px] font-bold tabular-nums">{cashAmount || "0"} ₺</span>
               </div>
               {cashNum >= total && (
-                <div className="flex justify-between items-center mt-2 pt-2 border-t border-border">
-                  <span className="text-text-secondary text-sm">Para Üstü</span>
-                  <span className="font-mono text-xl font-bold text-accent-amber">
+                <div className="flex justify-between items-center mt-3 pt-3 border-t border-separator">
+                  <span className="text-text-secondary text-[15px]">Para Üstü</span>
+                  <span className="font-mono text-[20px] font-bold text-accent-amber tabular-nums">
                     {formatPrice(change)}
                   </span>
                 </div>
               )}
             </div>
 
+            {/* Quick amounts */}
             <div className="flex gap-2 mb-3">
               {quickAmounts.map((amt) => (
                 <button
                   key={amt}
                   onClick={() => setCashAmount(String(amt))}
-                  className="flex-1 py-2.5 bg-bg-surface hover:bg-bg-hover text-sm font-mono border border-border rounded-lg min-h-[44px]"
+                  className="flex-1 h-[44px] bg-bg-tertiary hover:bg-bg-hover text-[15px] font-mono border border-border rounded-[10px] flex items-center justify-center"
                 >
                   {amt}₺
                 </button>
               ))}
               <button
                 onClick={() => setCashAmount(String(Math.ceil(total)))}
-                className="flex-1 py-2.5 bg-accent-green/10 text-accent-green text-sm font-medium border border-accent-green/30 rounded-lg min-h-[44px]"
+                className="flex-1 h-[44px] bg-accent-green/10 text-accent-green text-[15px] font-semibold border border-accent-green/30 rounded-[10px] flex items-center justify-center"
               >
                 Tam
               </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-1.5">
+            {/* Numpad grid */}
+            <div className="grid grid-cols-3 gap-2">
               {["7","8","9","4","5","6","1","2","3","C","0","."].map((key) => (
                 <button
                   key={key}
                   onClick={() => handleNumpad(key)}
                   className={cn(
-                    "h-12 text-lg font-semibold rounded-xl active:scale-95 transition-all",
-                    key === "C" ? "bg-accent-red/20 text-accent-red" : "bg-bg-surface hover:bg-bg-hover"
+                    "h-[52px] text-[18px] font-semibold rounded-[12px] active:scale-95 transition-all flex items-center justify-center",
+                    key === "C" ? "bg-accent-red/12 text-accent-red" : "bg-bg-tertiary hover:bg-bg-hover"
                   )}
                 >
                   {key}
@@ -200,8 +202,8 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
           placeholder="Sipariş notu (opsiyonel)"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm mb-5
-            placeholder:text-text-muted focus:outline-none focus:border-accent-blue min-h-[48px]"
+          className="w-full bg-bg-tertiary border border-border rounded-[12px] px-4 py-3 text-[15px] mb-5
+            placeholder:text-text-muted h-[48px]"
         />
 
         {/* Complete */}
@@ -212,7 +214,7 @@ export function PaymentModal({ open, onClose, subtotal, discount, serviceCharge,
           onClick={handleComplete}
           disabled={loading || (method === "cash" && cashNum < total)}
         >
-          {loading ? "İşleniyor..." : `SİPARİŞİ TAMAMLA — ${formatPrice(total)}`}
+          {loading ? "İşleniyor..." : `Siparişi Tamamla — ${formatPrice(total)}`}
         </Button>
       </div>
     </Modal>

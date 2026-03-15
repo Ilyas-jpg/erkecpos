@@ -17,46 +17,48 @@ export function OrderItem({ item, onIncrement, onDecrement, onRemove }: OrderIte
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
-      className="bg-fill-quaternary rounded-[10px] p-3"
+      className="bg-bg-tertiary rounded-[12px] p-3.5"
     >
-      <div className="flex items-start justify-between gap-2">
+      {/* Name + Price row */}
+      <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <h4 className="font-medium text-[14px] truncate tracking-[-0.1px]">{item.name}</h4>
+          <h4 className="font-semibold text-[15px] truncate tracking-[-0.2px]">{item.name}</h4>
           {item.extras.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-1">
+            <div className="flex flex-wrap gap-1 mt-1.5">
               {item.extras.map((ext, i) => (
-                <span key={i} className="text-[10px] bg-fill-tertiary rounded-[4px] px-1.5 py-0.5 text-text-muted">
+                <span key={i} className="text-[11px] bg-fill-quaternary rounded-[6px] px-2 py-[2px] text-text-secondary">
                   {ext.name}
                 </span>
               ))}
             </div>
           )}
           {item.note && (
-            <p className="text-[11px] text-accent-orange mt-1 italic">{item.note}</p>
+            <p className="text-[12px] text-accent-orange mt-1.5 italic">{item.note}</p>
           )}
         </div>
-        <span className="font-mono text-[14px] font-semibold text-accent-green shrink-0 tabular-nums">
+        <span className="font-mono text-[15px] font-semibold text-accent-green shrink-0 tabular-nums">
           {formatPrice(item.total_price)}
         </span>
       </div>
 
-      <div className="flex items-center justify-between mt-2.5">
-        <div className="flex items-center gap-0.5">
+      {/* Quantity controls */}
+      <div className="flex items-center justify-between mt-3">
+        <div className="flex items-center gap-1">
           <button
             onClick={item.quantity === 1 ? onRemove : onDecrement}
-            className="w-[30px] h-[30px] rounded-[8px] bg-fill-tertiary flex items-center justify-center text-text-secondary active:bg-fill-secondary transition-colors"
+            className="w-[36px] h-[36px] rounded-[10px] bg-fill-tertiary flex items-center justify-center active:bg-fill-secondary transition-colors"
           >
-            {item.quantity === 1 ? <Trash2 className="w-3.5 h-3.5 text-accent-red" /> : <Minus className="w-3.5 h-3.5" />}
+            {item.quantity === 1 ? <Trash2 className="w-[15px] h-[15px] text-accent-red" /> : <Minus className="w-[15px] h-[15px] text-text-secondary" />}
           </button>
-          <span className="w-8 text-center font-mono font-bold text-[14px] tabular-nums">{item.quantity}</span>
+          <span className="w-10 text-center font-mono font-bold text-[15px] tabular-nums">{item.quantity}</span>
           <button
             onClick={onIncrement}
-            className="w-[30px] h-[30px] rounded-[8px] bg-fill-tertiary flex items-center justify-center text-accent-green active:bg-accent-green/15 transition-colors"
+            className="w-[36px] h-[36px] rounded-[10px] bg-fill-tertiary flex items-center justify-center text-accent-green active:bg-accent-green/15 transition-colors"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-[15px] h-[15px]" />
           </button>
         </div>
-        <span className="text-[11px] text-text-muted font-mono tabular-nums">
+        <span className="text-[13px] text-text-muted font-mono tabular-nums">
           {formatPrice(item.unit_price)} × {item.quantity}
         </span>
       </div>
