@@ -47,78 +47,84 @@ export function SettingsPage() {
     }
   };
 
-  const inputClass = "w-full bg-bg-surface border border-border rounded-xl px-4 py-3 text-sm min-h-[48px] text-text-primary placeholder:text-text-muted transition-all";
+  const inputClass =
+    "w-full bg-bg-tertiary border border-border rounded-[12px] px-4 py-3 text-[15px] min-h-[48px] text-text-primary placeholder:text-text-muted transition-all";
   const inputMonoClass = inputClass + " font-mono";
+  const sectionClass = "bg-bg-secondary rounded-[16px] border border-border p-5";
+  const labelClass = "text-[13px] font-semibold text-text-secondary uppercase tracking-[0.06em] mb-3 flex items-center gap-2";
+  const fieldLabel = "text-[12px] text-text-muted uppercase tracking-[0.04em] mb-1.5 block";
 
   return (
     <div className="flex flex-col h-full">
       <TopBar title="Ayarlar" />
 
-      <div className="flex-1 overflow-y-auto scroll-container p-5 max-w-2xl">
-        <div className="space-y-5">
+      <div className="flex-1 overflow-y-auto scroll-container p-4 max-w-2xl">
+        <div className="space-y-4">
           {/* Theme */}
-          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2">{theme === "dark" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />} Tema</h3>
+          <section className={sectionClass}>
+            <h3 className={labelClass}>
+              {theme === "dark" ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />} Tema
+            </h3>
             <Toggle checked={theme === "light"} onChange={toggleTheme} label={theme === "dark" ? "Koyu Tema" : "Açık Tema"} />
           </section>
 
           {/* Service Charge */}
-          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Percent className="w-4 h-4" /> Servis Ücreti</h3>
+          <section className={sectionClass}>
+            <h3 className={labelClass}><Percent className="w-4 h-4" /> Servis Ücreti</h3>
             <Toggle checked={serviceEnabled} onChange={(v) => setServiceEnabled(v)} label="Aktif" />
             <div className="mt-3">
-              <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Oran (%)</label>
+              <label className={fieldLabel}>Oran (%)</label>
               <input type="number" value={serviceValue} onChange={(e) => setServiceValue(Number(e.target.value))}
                 className={inputMonoClass} />
             </div>
-            <Button variant="secondary" className="mt-4 w-full" onClick={() => save("service_charge", {
+            <Button variant="secondary" size="lg" className="mt-4 w-full" onClick={() => save("service_charge", {
               enabled: serviceEnabled, type: "percent", value: serviceValue, label: "Servis Ücreti"
             })}>Kaydet</Button>
           </section>
 
           {/* Tax Rate */}
-          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Percent className="w-4 h-4" /> KDV</h3>
+          <section className={sectionClass}>
+            <h3 className={labelClass}><Percent className="w-4 h-4" /> KDV</h3>
             <div>
-              <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Oran (%)</label>
+              <label className={fieldLabel}>Oran (%)</label>
               <input type="number" value={taxRate} onChange={(e) => setTaxRate(Number(e.target.value))}
                 className={inputMonoClass} />
             </div>
-            <Button variant="secondary" className="mt-4 w-full" onClick={() => save("tax_rate", { rate: taxRate, label: "KDV" })}>
+            <Button variant="secondary" size="lg" className="mt-4 w-full" onClick={() => save("tax_rate", { rate: taxRate, label: "KDV" })}>
               Kaydet
             </Button>
           </section>
 
           {/* Business Info */}
-          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Building2 className="w-4 h-4" /> İşletme Bilgileri</h3>
+          <section className={sectionClass}>
+            <h3 className={labelClass}><Building2 className="w-4 h-4" /> İşletme Bilgileri</h3>
             <div className="space-y-3">
               <div>
-                <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">İşletme Adı</label>
+                <label className={fieldLabel}>İşletme Adı</label>
                 <input value={businessName} onChange={(e) => setBusinessName(e.target.value)} placeholder="İşletme adı" className={inputClass} />
               </div>
               <div>
-                <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Adres</label>
+                <label className={fieldLabel}>Adres</label>
                 <input value={businessAddress} onChange={(e) => setBusinessAddress(e.target.value)} placeholder="Adres" className={inputClass} />
               </div>
               <div>
-                <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Telefon</label>
+                <label className={fieldLabel}>Telefon</label>
                 <input value={businessPhone} onChange={(e) => setBusinessPhone(e.target.value)} placeholder="Telefon" className={inputClass} />
               </div>
               <div>
-                <label className="text-[10px] text-text-muted uppercase tracking-widest mb-1.5 block">Vergi No</label>
+                <label className={fieldLabel}>Vergi No</label>
                 <input value={businessTaxId} onChange={(e) => setBusinessTaxId(e.target.value)} placeholder="Vergi No" className={inputClass} />
               </div>
             </div>
-            <Button variant="secondary" className="mt-4 w-full" onClick={() => save("business_info", {
+            <Button variant="secondary" size="lg" className="mt-4 w-full" onClick={() => save("business_info", {
               name: businessName, address: businessAddress, phone: businessPhone, tax_id: businessTaxId,
             })}>Kaydet</Button>
           </section>
 
           {/* Admin PIN */}
-          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-2 flex items-center gap-2"><KeyRound className="w-4 h-4" /> Yönetim PIN Kodu</h3>
-            <p className="text-[10px] text-text-muted mb-4">Yönetim paneline erişim için kullanılan PIN. Varsayılan: 123456</p>
+          <section className={sectionClass}>
+            <h3 className={labelClass}><KeyRound className="w-4 h-4" /> Yönetim PIN Kodu</h3>
+            <p className="text-[13px] text-text-muted mb-4 -mt-1">Yönetim paneline erişim için kullanılan PIN. Varsayılan: 123456</p>
             <input
               type="text"
               inputMode="numeric"
@@ -126,19 +132,19 @@ export function SettingsPage() {
               value={adminPin}
               onChange={(e) => setAdminPin(e.target.value.replace(/\D/g, ""))}
               placeholder="PIN kodu (4-8 haneli)"
-              className={inputMonoClass + " tracking-[0.4em] text-center text-lg"}
+              className={inputMonoClass + " tracking-[0.4em] text-center text-[20px]"}
             />
-            <Button variant="secondary" className="mt-4 w-full" onClick={() => save("admin_pin", { pin: adminPin })}>
+            <Button variant="secondary" size="lg" className="mt-4 w-full" onClick={() => save("admin_pin", { pin: adminPin })}>
               PIN Kaydet
             </Button>
           </section>
 
           {/* Daily Target */}
-          <section className="bg-bg-card rounded-2xl border border-white/[0.06] p-5 shadow-sm mb-20">
-            <h3 className="text-xs font-semibold tracking-widest uppercase text-text-muted mb-4 flex items-center gap-2"><Target className="w-4 h-4" /> Günlük Hedef</h3>
+          <section className={sectionClass + " mb-24"}>
+            <h3 className={labelClass}><Target className="w-4 h-4" /> Günlük Hedef</h3>
             <input type="number" value={dailyTarget} onChange={(e) => setDailyTarget(Number(e.target.value))}
               className={inputMonoClass} />
-            <Button variant="secondary" className="mt-4 w-full" onClick={() => save("daily_target", { amount: dailyTarget })}>
+            <Button variant="secondary" size="lg" className="mt-4 w-full" onClick={() => save("daily_target", { amount: dailyTarget })}>
               Kaydet
             </Button>
           </section>

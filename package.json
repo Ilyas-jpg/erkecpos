@@ -1,5 +1,11 @@
 {
   "name": "pos-system",
   "private": true,
-  "workspaces": ["server", "client"]
+  "workspaces": ["server", "client"],
+  "dependencies": {
+    "hono": "^4.7.0",
+    "@libsql/client": "^0.14.0",
+    "drizzle-orm": "^0.38.0",
+    "dotenv": "^16.4.0"
+  }
 }
