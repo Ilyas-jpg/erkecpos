@@ -5,8 +5,10 @@ import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import { eq, and, asc, desc, gte, lte, gt, sql } from "drizzle-orm";
 import {
-  sqliteTable, text, integer, real, index, uniqueIndex,
+  sqliteTable, text, integer, real,
 } from "drizzle-orm/sqlite-core";
+
+export const config = { runtime: "nodejs" };
 
 // ═══════════════════════════════════
 // SCHEMA
@@ -175,18 +177,21 @@ const changeLog = sqliteTable("change_log", {
 });
 
 // ═══════════════════════════════════
-// DATABASE
+// DATABASE (lazy init)
 // ═══════════════════════════════════
-const turso = createClient({
-  url: process.env.TURSO_DATABASE_URL!,
-  authToken: process.env.TURSO_AUTH_TOKEN!,
-});
-const db = drizzle(turso, {
-  schema: {
-    categories, products, extras, productExtras, combos, comboItems,
-    campaigns, orders, orderItems, orderItemExtras, cashRegister,
-    wasteLog, settings, dailyReports, changeLog,
-  },
+let _db: ReturnType<typeof drizzle> | null = null;
+function getDb() {
+  if (!_db) {
+    const turso = createClient({
+      url: process.env.TURSO_DATABASE_URL || "",
+      authToken: process.env.TURSO_AUTH_TOKEN || "",
+    });
+    _db = drizzle(turso);
+  }
+  return _db;
+}
+const db = new Proxy({} as ReturnType<typeof drizzle>, {
+  get(_, prop) { return (getDb() as any)[prop]; },
 });
 
 // ═══════════════════════════════════
@@ -215,7 +220,17 @@ app.use("*", cors({
   allowHeaders: ["Content-Type", "Authorization"],
 }));
 
-app.get("/health", (c) => c.json({ status: "ok", time: new Date().toISOString() }));
+app.onError((err, c) => {
+  console.error("API Error:", err.message, err.stack);
+  return c.json({ error: err.message }, 500);
+});
+
+app.get("/health", (c) => c.json({
+  status: "ok",
+  time: new Date().toISOString(),
+  hasDbUrl: !!process.env.TURSO_DATABASE_URL,
+  hasDbToken: !!process.env.TURSO_AUTH_TOKEN,
+}));
 
 // ── CATEGORIES ──
 app.get("/categories", async (c) => {
