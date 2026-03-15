@@ -17,13 +17,13 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <Modal open={open} onClose={onClose} title={title} size="sm">
-      <div className="p-6">
-        <p className="text-text-secondary text-sm mb-6">{message}</p>
+      <div className="p-5">
+        <p className="text-text-secondary text-[15px] leading-relaxed mb-6">{message}</p>
         <div className="flex gap-3">
-          <Button variant="secondary" className="flex-1" onClick={onClose}>
+          <Button variant="secondary" size="lg" className="flex-1" onClick={onClose}>
             İptal
           </Button>
-          <Button variant={variant} className="flex-1" onClick={() => { onConfirm(); onClose(); }}>
+          <Button variant={variant} size="lg" className="flex-1" onClick={() => { onConfirm(); onClose(); }}>
             {confirmText}
           </Button>
         </div>

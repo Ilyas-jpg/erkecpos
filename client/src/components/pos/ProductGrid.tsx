@@ -66,17 +66,20 @@ export function ProductGrid({ search, onSearchChange, onProductTap, onComboTap }
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
-      <div className="p-3 shrink-0">
+      {/* Search */}
+      <div className="p-4 pb-2 shrink-0">
         <SearchInput value={search} onChange={onSearchChange} placeholder="Ürün ara..." />
       </div>
 
-      <div className="flex-1 overflow-y-auto scroll-container p-3 pt-0">
+      {/* Grid */}
+      <div className="flex-1 overflow-y-auto scroll-container px-4 pb-4">
+        {/* Combos section */}
         {filteredCombos.length > 0 && (
-          <div className="mb-4">
-            <h3 className="text-[10px] font-semibold text-text-muted uppercase tracking-[0.2em] mb-2 px-1">
+          <div className="mb-5">
+            <h3 className="text-[13px] font-semibold text-text-secondary uppercase tracking-[0.06em] mb-3">
               Menüler
             </h3>
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-2">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3">
               {filteredCombos.map((combo) => (
                 <ComboCard key={combo.id} combo={combo} onTap={() => onComboTap(combo.id)} />
               ))}
@@ -84,20 +87,28 @@ export function ProductGrid({ search, onSearchChange, onProductTap, onComboTap }
           </div>
         )}
 
+        {/* Products */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-2">
-            <AnimatePresence>
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  categoryColor={getCategoryColor(product.categoryId)}
-                  cartQuantity={getCartQuantity(product.id)}
-                  hasExtras={productHasExtras.has(product.id)}
-                  onTap={() => onProductTap(product, productHasExtras.has(product.id))}
-                />
-              ))}
-            </AnimatePresence>
+          <div>
+            {filteredCombos.length > 0 && (
+              <h3 className="text-[13px] font-semibold text-text-secondary uppercase tracking-[0.06em] mb-3">
+                Ürünler
+              </h3>
+            )}
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3">
+              <AnimatePresence>
+                {filteredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    categoryColor={getCategoryColor(product.categoryId)}
+                    cartQuantity={getCartQuantity(product.id)}
+                    hasExtras={productHasExtras.has(product.id)}
+                    onTap={() => onProductTap(product, productHasExtras.has(product.id))}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
           </div>
         ) : (
           <EmptyState icon={<Search className="w-7 h-7 text-text-muted" />} title="Ürün bulunamadı" />

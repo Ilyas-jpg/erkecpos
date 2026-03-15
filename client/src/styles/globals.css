@@ -1,78 +1,79 @@
 @import "tailwindcss";
 
 @theme {
-  /* Soft dark palette - warm, gentle tones */
-  --color-bg-primary: #0d0d0f;
-  --color-bg-secondary: #161618;
-  --color-bg-tertiary: #1e1e22;
-  --color-bg-elevated: #1a1a1e;
+  /* ── Apple-inspired dark palette ── */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #1c1c1e;
+  --color-bg-tertiary: #2c2c2e;
+  --color-bg-elevated: #1c1c1e;
 
-  /* Backward compat */
-  --color-bg-darkest: #0d0d0f;
-  --color-bg-card: #1a1a1e;
-  --color-bg-surface: #222226;
-  --color-bg-hover: #2a2a2f;
+  --color-bg-darkest: #000000;
+  --color-bg-card: #1c1c1e;
+  --color-bg-surface: #2c2c2e;
+  --color-bg-hover: #3a3a3c;
 
-  /* Soft accent colors - muted, not harsh */
-  --color-accent-red: #e8534b;
-  --color-accent-green: #3cc06a;
-  --color-accent-amber: #e8b73d;
-  --color-accent-blue: #4a9eff;
-  --color-accent-purple: #a378f0;
-  --color-accent-orange: #e89040;
-  --color-accent-teal: #5ec4d4;
-  --color-accent-indigo: #7b7bf0;
+  /* iOS system colors (dark) */
+  --color-accent-red: #ff453a;
+  --color-accent-green: #30d158;
+  --color-accent-amber: #ffd60a;
+  --color-accent-blue: #0a84ff;
+  --color-accent-purple: #bf5af2;
+  --color-accent-orange: #ff9f0a;
+  --color-accent-teal: #64d2ff;
+  --color-accent-indigo: #5e5ce6;
 
-  /* Soft text colors */
+  /* iOS label hierarchy */
   --color-text-primary: rgba(255, 255, 255, 0.92);
-  --color-text-secondary: rgba(255, 255, 255, 0.6);
-  --color-text-muted: rgba(255, 255, 255, 0.28);
-  --color-label-tertiary: rgba(255, 255, 255, 0.18);
+  --color-text-secondary: rgba(235, 235, 245, 0.6);
+  --color-text-muted: rgba(235, 235, 245, 0.3);
+  --color-label-tertiary: rgba(235, 235, 245, 0.18);
 
-  /* Soft separators */
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-strong: rgba(255, 255, 255, 0.1);
-  --color-separator: rgba(255, 255, 255, 0.06);
+  /* Separators & borders */
+  --color-border: rgba(84, 84, 88, 0.36);
+  --color-border-strong: rgba(84, 84, 88, 0.55);
+  --color-separator: rgba(84, 84, 88, 0.36);
 
-  /* Soft fills */
-  --color-fill-primary: rgba(255, 255, 255, 0.12);
-  --color-fill-secondary: rgba(255, 255, 255, 0.08);
-  --color-fill-tertiary: rgba(255, 255, 255, 0.05);
-  --color-fill-quaternary: rgba(255, 255, 255, 0.03);
+  /* System fill colors */
+  --color-fill-primary: rgba(120, 120, 128, 0.36);
+  --color-fill-secondary: rgba(120, 120, 128, 0.32);
+  --color-fill-tertiary: rgba(118, 118, 128, 0.24);
+  --color-fill-quaternary: rgba(116, 116, 128, 0.18);
 
-  /* Fonts */
+  /* SF Pro */
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
   --font-mono: "SF Mono", "Menlo", "Monaco", ui-monospace, monospace;
 }
 
 .light {
-  --color-bg-primary: #f5f5f7;
+  --color-bg-primary: #f2f2f7;
   --color-bg-secondary: #ffffff;
-  --color-bg-tertiary: #f0f0f2;
+  --color-bg-tertiary: #f2f2f7;
   --color-bg-elevated: #ffffff;
-  --color-bg-darkest: #f5f5f7;
+  --color-bg-darkest: #f2f2f7;
   --color-bg-card: #ffffff;
-  --color-bg-surface: #ececee;
-  --color-bg-hover: #e0e0e3;
-  --color-text-primary: rgba(0, 0, 0, 0.88);
-  --color-text-secondary: rgba(0, 0, 0, 0.55);
-  --color-text-muted: rgba(0, 0, 0, 0.22);
-  --color-label-tertiary: rgba(0, 0, 0, 0.12);
-  --color-border: rgba(0, 0, 0, 0.06);
-  --color-border-strong: rgba(0, 0, 0, 0.1);
-  --color-separator: rgba(0, 0, 0, 0.06);
-  --color-fill-primary: rgba(0, 0, 0, 0.08);
-  --color-fill-secondary: rgba(0, 0, 0, 0.05);
-  --color-fill-tertiary: rgba(0, 0, 0, 0.03);
-  --color-fill-quaternary: rgba(0, 0, 0, 0.02);
-  --color-accent-red: #e0423a;
-  --color-accent-green: #2eaa57;
-  --color-accent-blue: #2e7cf6;
-  --color-accent-amber: #d4981c;
-  --color-accent-purple: #8b5cf6;
+  --color-bg-surface: #e5e5ea;
+  --color-bg-hover: #d1d1d6;
+  --color-text-primary: rgba(0, 0, 0, 0.85);
+  --color-text-secondary: rgba(60, 60, 67, 0.6);
+  --color-text-muted: rgba(60, 60, 67, 0.3);
+  --color-label-tertiary: rgba(60, 60, 67, 0.18);
+  --color-border: rgba(60, 60, 67, 0.12);
+  --color-border-strong: rgba(60, 60, 67, 0.2);
+  --color-separator: rgba(60, 60, 67, 0.29);
+  --color-fill-primary: rgba(120, 120, 128, 0.2);
+  --color-fill-secondary: rgba(120, 120, 128, 0.16);
+  --color-fill-tertiary: rgba(118, 118, 128, 0.12);
+  --color-fill-quaternary: rgba(116, 116, 128, 0.08);
+  --color-accent-red: #ff3b30;
+  --color-accent-green: #34c759;
+  --color-accent-blue: #007aff;
+  --color-accent-amber: #ffcc00;
+  --color-accent-purple: #af52de;
+  --color-accent-orange: #ff9500;
 }
 
-* {
+/* ── Reset ── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -91,34 +92,25 @@ html, body, #root {
   touch-action: manipulation;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.022em;
+  line-height: 1.47;
+  font-size: 17px;
 }
 
-/* Ultra-thin scrollbars */
-::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-button, [role="button"] {
-  touch-action: manipulation;
-  cursor: pointer;
-}
-
+/* ── Hidden scrollbars (iOS style) ── */
+::-webkit-scrollbar { width: 0; height: 0; }
 .scroll-container {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.scroll-container::-webkit-scrollbar { display: none; }
+
+/* ── Touch targets ── */
+button, [role="button"] {
+  touch-action: manipulation;
+  cursor: pointer;
 }
 
 .font-mono {
@@ -126,54 +118,51 @@ button, [role="button"] {
   font-feature-settings: "tnum" 1;
 }
 
-/* Gentle focus ring */
+/* ── Focus — Apple ring ── */
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: rgba(74, 158, 255, 0.4) !important;
-  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.25);
 }
 
 select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23999' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 32px !important;
-  cursor: pointer;
 }
 
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Glassmorphism materials - soft, blurry */
+/* ── iOS Materials ── */
 .material-thin {
-  background: rgba(26, 26, 30, 0.6);
-  backdrop-filter: saturate(150%) blur(24px);
-  -webkit-backdrop-filter: saturate(150%) blur(24px);
+  background: rgba(28, 28, 30, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .vibrancy-sidebar {
-  background: rgba(22, 22, 24, 0.55);
-  backdrop-filter: saturate(180%) blur(30px);
-  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  background: rgba(30, 30, 32, 0.65);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
 .vibrancy-bar {
-  background: rgba(16, 16, 18, 0.65);
-  backdrop-filter: saturate(180%) blur(28px);
-  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  background: rgba(22, 22, 24, 0.78);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
 
-/* Soft card glow effect */
+/* ── Card glow ── */
 .card-glow {
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.15),
-    0 0 0 0.5px rgba(255, 255, 255, 0.03) inset,
-    0 1px 0 rgba(255, 255, 255, 0.02) inset;
+    0 0.5px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Smooth transitions globally */
+/* ── Spring easing ── */
 * {
-  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
