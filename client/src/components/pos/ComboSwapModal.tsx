@@ -15,7 +15,6 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
   const addToCart = useStore((s) => s.addToCart);
   const addToast = useStore((s) => s.addToast);
 
-  // Track swaps: itemId -> swapped product id
   const [swaps, setSwaps] = useState<Record<string, string>>({});
 
   if (!combo) return null;
@@ -25,7 +24,6 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
   };
 
   const handleAdd = () => {
-    // Calculate price difference from swaps
     let priceDiff = 0;
     for (const item of combo.items) {
       if (swaps[item.id]) {
@@ -55,7 +53,9 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
   return (
     <Modal open={open} onClose={onClose} title={combo.name} size="md">
       <div className="p-5">
-        <p className="text-text-secondary text-sm mb-4">{combo.description}</p>
+        {combo.description && (
+          <p className="text-text-secondary text-[15px] leading-relaxed mb-5">{combo.description}</p>
+        )}
 
         <div className="space-y-4 mb-6">
           {combo.items.map((item) => {
@@ -70,21 +70,21 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
               : [];
 
             return (
-              <div key={item.id} className="bg-bg-surface rounded-xl p-3">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium text-sm">
+              <div key={item.id} className="bg-bg-tertiary rounded-[12px] p-4">
+                <div className="flex justify-between items-center gap-3 mb-2">
+                  <span className="font-semibold text-[15px] truncate">
                     {currentProduct?.name || item.productName}
                     {item.quantity > 1 && ` x${item.quantity}`}
                   </span>
                   {swappable && (
-                    <span className="text-[10px] bg-accent-amber/20 text-accent-amber rounded-md px-2 py-0.5">
-                      Degistirilebilir
+                    <span className="text-[11px] bg-accent-amber/15 text-accent-amber rounded-[8px] px-2.5 py-1 font-medium shrink-0">
+                      Değiştirilebilir
                     </span>
                   )}
                 </div>
 
                 {swappable && swapOptions.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-2">
+                  <div className="flex flex-wrap gap-2 mt-3">
                     {swapOptions.map((opt) => {
                       const isSelected = (swappedId || item.productId) === opt.id;
                       const priceDiff = opt.price - item.productPrice;
@@ -93,15 +93,15 @@ export function ComboSwapModal({ open, onClose, combo }: ComboSwapModalProps) {
                           key={opt.id}
                           onClick={() => handleSwap(item.id, opt.id)}
                           className={cn(
-                            "px-3 py-2 text-xs border rounded-lg min-h-[40px] transition-all",
+                            "px-3.5 py-2.5 text-[13px] border rounded-[10px] min-h-[44px] transition-all",
                             isSelected
-                              ? "border-accent-green bg-accent-green/10 text-accent-green"
+                              ? "border-accent-green bg-accent-green/10 text-accent-green font-medium"
                               : "border-border text-text-secondary hover:bg-bg-hover"
                           )}
                         >
-                          {opt.name}
+                          <span>{opt.name}</span>
                           {priceDiff !== 0 && (
-                            <span className="font-mono ml-1">
+                            <span className="font-mono ml-1.5 text-[12px]">
                               {priceDiff > 0 ? "+" : ""}{formatPrice(priceDiff)}
                             </span>
                           )}

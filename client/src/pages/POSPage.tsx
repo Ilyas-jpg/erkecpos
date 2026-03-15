@@ -61,49 +61,49 @@ export function POSPage() {
 
   return (
     <div className="flex h-full">
-      {/* Category Sidebar - desktop only */}
-      <aside className="hidden lg:flex flex-col w-[84px] bg-white/[0.02] border-r border-white/[0.04] shrink-0">
-        <div className="flex-1 overflow-y-auto scroll-container py-1.5 px-1.5">
+      {/* Category Sidebar — desktop only */}
+      <aside className="hidden lg:flex flex-col w-[88px] bg-bg-secondary/50 border-r border-separator shrink-0">
+        <div className="flex-1 overflow-y-auto scroll-container py-2 px-2">
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "w-full py-2.5 px-1 flex flex-col items-center gap-1 text-center transition-all rounded-[10px] mb-0.5",
+              "w-full min-h-[52px] py-2 px-1 flex flex-col items-center gap-[5px] text-center transition-all rounded-[12px] mb-1",
               !selectedCategory
-                ? "bg-accent-blue/10 text-accent-blue/90"
+                ? "bg-accent-blue/12 text-accent-blue"
                 : "text-text-muted hover:bg-fill-quaternary hover:text-text-secondary"
             )}
           >
-            <LayoutGrid className="w-[20px] h-[20px]" strokeWidth={1.8} />
-            <span className="text-[10px] font-medium leading-tight">Tümü</span>
+            <LayoutGrid className="w-[20px] h-[20px]" strokeWidth={1.7} />
+            <span className="text-[11px] font-medium leading-none">Tümü</span>
           </button>
           {categories.filter((c) => c.active === 1).map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "w-full py-2.5 px-1 flex flex-col items-center gap-1 text-center transition-all rounded-[10px] mb-0.5",
+                "w-full min-h-[52px] py-2 px-1 flex flex-col items-center gap-[5px] text-center transition-all rounded-[12px] mb-1",
                 selectedCategory === cat.id
-                  ? "bg-accent-blue/10 text-accent-blue/90"
+                  ? "bg-accent-blue/12 text-accent-blue"
                   : "text-text-muted hover:bg-fill-quaternary hover:text-text-secondary"
               )}
             >
-              <span className="text-[18px]">{cat.icon || "📋"}</span>
-              <span className="text-[10px] font-medium leading-tight">{cat.name}</span>
+              <span className="text-[18px] leading-none">{cat.icon || "📋"}</span>
+              <span className="text-[11px] font-medium leading-none">{cat.name}</span>
             </button>
           ))}
         </div>
       </aside>
 
       {/* Mobile category bar */}
-      <div className="lg:hidden fixed top-[52px] left-0 right-0 z-30 vibrancy-bar border-b border-separator overflow-x-auto">
-        <div className="flex items-center gap-1.5 px-3 py-2 min-w-max">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 vibrancy-bar border-b border-separator">
+        <div className="flex items-center gap-2 px-4 py-2.5 overflow-x-auto scroll-container">
           <button
             onClick={() => setSelectedCategory(null)}
             className={cn(
-              "px-3.5 py-[6px] text-[13px] font-medium whitespace-nowrap transition-all rounded-full",
+              "px-4 py-[7px] text-[13px] font-semibold whitespace-nowrap transition-all rounded-full shrink-0",
               !selectedCategory
-                ? "bg-accent-blue/85 text-white shadow-[0_2px_8px_rgba(74,158,255,0.2)]"
-                : "bg-white/[0.05] text-white/50"
+                ? "bg-accent-blue text-white"
+                : "bg-fill-quaternary text-text-secondary"
             )}
           >
             Tümü
@@ -113,10 +113,10 @@ export function POSPage() {
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={cn(
-                "px-3.5 py-[6px] text-[13px] font-medium whitespace-nowrap transition-all rounded-full",
+                "px-4 py-[7px] text-[13px] font-semibold whitespace-nowrap transition-all rounded-full shrink-0",
                 selectedCategory === cat.id
-                  ? "bg-accent-blue/85 text-white shadow-[0_2px_8px_rgba(74,158,255,0.2)]"
-                  : "bg-white/[0.05] text-white/50"
+                  ? "bg-accent-blue text-white"
+                  : "bg-fill-quaternary text-text-secondary"
               )}
             >
               {cat.icon} {cat.name}
@@ -126,7 +126,7 @@ export function POSPage() {
       </div>
 
       {/* Product Grid */}
-      <div className="flex-1 flex flex-col min-h-0 lg:pt-0 pt-[52px] pb-[64px] lg:pb-0">
+      <div className="flex-1 flex flex-col min-h-0 lg:pt-0 pt-[52px] pb-[50px] lg:pb-0">
         <ProductGrid
           search={search}
           onSearchChange={setSearch}
@@ -135,7 +135,7 @@ export function POSPage() {
         />
       </div>
 
-      {/* Order Panel - desktop */}
+      {/* Order Panel — desktop */}
       <div className="hidden lg:flex">
         <OrderPanel />
       </div>
@@ -144,10 +144,10 @@ export function POSPage() {
       {cartCount > 0 && !showOrder && (
         <button
           onClick={() => setShowOrder(true)}
-          className="lg:hidden fixed bottom-[68px] left-4 right-4 bg-accent-green text-white py-3.5
-            font-semibold text-[15px] text-center z-30 rounded-[12px]
-            shadow-[0_4px_16px_rgba(48,209,88,0.3),0_1px_3px_rgba(0,0,0,0.2)]
-            active:scale-[0.98] transition-transform"
+          className="lg:hidden fixed bottom-[58px] left-4 right-4 bg-accent-green text-white py-3.5
+            font-semibold text-[15px] text-center z-30 rounded-[14px]
+            shadow-[0_4px_20px_rgba(48,209,88,0.35)]
+            active:scale-[0.97] transition-transform"
         >
           Sepeti Gör ({cartCount} ürün)
         </button>
@@ -156,9 +156,12 @@ export function POSPage() {
       {/* Mobile order overlay */}
       {showOrder && (
         <div className="lg:hidden fixed inset-0 z-50 bg-bg-primary flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-separator">
+          <div className="flex items-center justify-between px-4 h-[56px] border-b border-separator shrink-0">
             <h2 className="font-semibold text-[17px]">Sipariş</h2>
-            <button onClick={() => setShowOrder(false)} className="text-accent-blue font-medium text-[15px] min-h-[36px] px-2">
+            <button
+              onClick={() => setShowOrder(false)}
+              className="text-accent-blue font-medium text-[17px] min-h-[44px] min-w-[44px] flex items-center justify-center"
+            >
               Kapat
             </button>
           </div>
